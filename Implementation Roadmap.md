@@ -16,7 +16,7 @@ This roadmap outlines the sequential steps to build the MVP version of the Virtu
 - Set up Dockerfile for frontend application
 - Set up Dockerfile for backend API
 - Configure Docker networking for service communication
-- Create development and production Docker configurations
+- Create development Docker configuration
 
 ### 1.3 Database Setup
 - Set up PostgreSQL database container
