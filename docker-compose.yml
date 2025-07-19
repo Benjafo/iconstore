@@ -25,4 +25,3 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-      - FAST_REFRESH=true

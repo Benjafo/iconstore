@@ -35,6 +35,7 @@ This roadmap outlines the sequential steps to build the MVP version of the Virtu
 [] Set up logging infrastructure with Docker logs
 [] Create docker-compose.dev.yml for local development
 [] Set up hot-reloading for development containers
+[] Create development scripts
 
 ## Phase 2: Authentication System
 
