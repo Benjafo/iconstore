@@ -13,7 +13,7 @@ claude
 
 # 4. Begin work on feature using Claude Code with the prompt:
 
-Read and STRICTLY FOLLOW the instructions in CLAUDE.md. Let me know when you have read the document and are ready to begin the CORE WORKFLOW.
+Read and STRICTLY FOLLOW the instructions in .claude/CLAUDE.md. Let me know when you have read the document and are ready to begin the CORE WORKFLOW.
 
 # 4. Periodically squash commits as tasks are completed
 
