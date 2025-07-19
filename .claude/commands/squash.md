@@ -2,10 +2,13 @@
 allowed-tools: all
 description: Squash checkpoint commits into a single task commit
 ---
+
 # Squash Checkpoint Commits
+
 Squash multiple checkpoint commits into a single task commit with a descriptive message.
 Usage: `/squash [commit-message]`
 The command will:
+
 1. Check if on a feature branch (not main/master)
 2. Count checkpoint commits
 3. Extract change descriptions from checkpoint messages
@@ -13,6 +16,7 @@ The command will:
 5. Use provided message or auto-generate from changes
 
 Execute:
+
 ```bash
 #!/bin/bash
 CUSTOM_MESSAGE="$*"
@@ -65,3 +69,4 @@ git commit -m "$COMMIT_MESSAGE"
 echo "✅ Successfully squashed $CHECKPOINT_COUNT commits into single task commit"
 echo "🌿 Branch: $BRANCH"
 echo "💬 Message: $COMMIT_MESSAGE"
+```

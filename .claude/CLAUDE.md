@@ -14,6 +14,7 @@ We build production code together. I handle implementation details while you gui
 ## Code Organization
 
 **Keep functions small and focused:**
+
 - If you need comments to explain sections, split into functions
 - Group related functionality into clear packages
 - Prefer many small files over few large ones
@@ -21,12 +22,14 @@ We build production code together. I handle implementation details while you gui
 ## Architecture Principles
 
 **This is always a feature branch:**
+
 - Delete old code completely - no deprecation needed
 - No versioned names (processV2, handleNew, ClientOld)
 - No migration code unless explicitly requested
 - No "removed code" comments - just delete it
 
 **Prefer explicit over implicit:**
+
 - Clear function names over clever abstractions
 - Obvious data flow over hidden magic
 - Direct dependencies over service locators
@@ -66,6 +69,7 @@ Your redirects prevent over-engineering. When uncertain about implementation, st
 ## Testing Strategy
 
 **Match testing approach to code complexity:**
+
 - Complex business logic: Write tests first (TDD)
 - Simple CRUD operations: Write code first, then tests
 - Hot paths: Add benchmarks after implementation

@@ -23,12 +23,14 @@ When you run `/check`, you are REQUIRED to:
    - ✅ EVERYTHING is GREEN
 
 **FORBIDDEN BEHAVIORS:**
+
 - ❌ "Here are the issues I found" → NO! FIX THEM!
 - ❌ "The linter reports these problems" → NO! RESOLVE THEM!
 - ❌ "Tests are failing because..." → NO! MAKE THEM PASS!
 - ❌ Stopping after listing issues → NO! KEEP WORKING!
 
 **MANDATORY WORKFLOW:**
+
 ```
 1. Run checks → Find issues
 2. IMMEDIATELY spawn agents to fix ALL issues
@@ -38,6 +40,7 @@ When you run `/check`, you are REQUIRED to:
 ```
 
 **YOU ARE NOT DONE UNTIL:**
+
 - All linters pass with zero warnings
 - All tests pass successfully
 - All builds complete without errors
@@ -46,6 +49,7 @@ When you run `/check`, you are REQUIRED to:
 ---
 
 🛑 **MANDATORY PRE-FLIGHT CHECK** 🛑
+
 1. Re-read ~/.claude/CLAUDE.md RIGHT NOW
 2. Check current TODO.md status
 3. Verify you're not declaring "done" prematurely
@@ -53,6 +57,7 @@ When you run `/check`, you are REQUIRED to:
 Execute comprehensive quality checks with ZERO tolerance for excuses.
 
 **FORBIDDEN EXCUSE PATTERNS:**
+
 - "This is just stylistic" → NO, it's a requirement
 - "Most remaining issues are minor" → NO, ALL issues must be fixed
 - "This can be addressed later" → NO, fix it now
@@ -66,12 +71,14 @@ Let me ultrathink about validating this codebase against our exceptional standar
 **Universal Quality Verification Protocol:**
 
 **Step 1: Pre-Check Analysis**
+
 - Review recent changes to understand scope
 - Identify which tests should be affected
 - Check for any outstanding TODOs or temporary code
 
 **Step 2: Language-Agnostic Linting**
 Run `npm run lint` and ensure:
+
 - ZERO warnings across ALL linters
 - ZERO disabled linter rules without documented justification
 - ZERO "nolint" or suppression comments without explanation
@@ -79,17 +86,20 @@ Run `npm run lint` and ensure:
 
 **Step 3: Test Verification**
 Run `npm run test` and ensure:
+
 - ALL tests pass without flakiness
 - Test coverage is meaningful (not just high numbers)
 - No skipped tests without justification
 - Tests actually test behavior, not implementation details
 
 **Code Quality Checklist:**
+
 - [ ] No any - concrete types everywhere
 - [ ] Simple error handling - no custom error hierarchies
 - [ ] Meaningful variable names (userID not id)
 
 **Code Hygiene Verification:**
+
 - [ ] No commented-out code blocks
 - [ ] No debugging print statements
 - [ ] No placeholder implementations
@@ -97,6 +107,7 @@ Run `npm run test` and ensure:
 - [ ] No circular dependencies
 
 **Security Audit:**
+
 - [ ] Input validation on all external data
 - [ ] SQL queries use prepared statements
 - [ ] No hardcoded secrets or credentials
@@ -104,16 +115,18 @@ Run `npm run test` and ensure:
 - [ ] Rate limiting where appropriate
 
 **Performance Verification:**
+
 - [ ] No obvious N+1 queries
 - [ ] Connection pooling configured
 
 **Failure Response Protocol:**
 When issues are found:
+
 1. **IMMEDIATELY SPAWN AGENTS** to fix issues in parallel:
    ```
    "I found 15 linting issues and 3 test failures. I'll spawn agents to fix these:
    - Agent 1: Fix linting issues in files A, B, C
-   - Agent 2: Fix linting issues in files D, E, F  
+   - Agent 2: Fix linting issues in files D, E, F
    - Agent 3: Fix the failing tests
    Let me tackle all of these in parallel..."
    ```
@@ -138,12 +151,14 @@ The code is ready when:
 
 **Final Commitment:**
 I will now execute EVERY check listed above and FIX ALL ISSUES. I will:
+
 - ✅ Run all checks to identify issues
 - ✅ SPAWN MULTIPLE AGENTS to fix issues in parallel
 - ✅ Keep working until EVERYTHING passes
 - ✅ Not stop until all checks show passing status
 
 I will NOT:
+
 - ❌ Just report issues without fixing them
 - ❌ Skip any checks
 - ❌ Rationalize away issues

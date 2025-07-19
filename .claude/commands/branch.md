@@ -10,12 +10,14 @@ Create a new feature branch from the current branch (usually main/master).
 Usage: `/branch feature-name`
 
 The command will:
+
 1. Ensure working directory is clean
 2. Pull latest changes from origin
 3. Create and checkout new branch
 4. Push branch to origin with tracking
 
 Execute:
+
 ```bash
 #!/bin/bash
 BRANCH_NAME="${1:-feature-$(date +%Y%m%d-%H%M%S)}"
@@ -39,3 +41,4 @@ git checkout -b $BRANCH_NAME
 
 echo "✅ Successfully created and switched to branch: $BRANCH_NAME"
 echo "💡 You can now work on this feature branch. Changes will be auto-committed."
+```

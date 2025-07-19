@@ -1,12 +1,15 @@
 # API Documentation - Icon Pack Store
 
 ## Base URL
+
 ```
 https://api.iconstore.com/v1
 ```
 
 ## Authentication
+
 All authenticated endpoints require a JWT token in the Authorization header:
+
 ```
 Authorization: Bearer <jwt_token>
 ```
@@ -16,11 +19,13 @@ Authorization: Bearer <jwt_token>
 ## Authentication Endpoints
 
 ### Register User
+
 ```
 POST /auth/register
 ```
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -30,6 +35,7 @@ POST /auth/register
 ```
 
 **Response:**
+
 ```json
 {
   "user": {
@@ -44,11 +50,13 @@ POST /auth/register
 ```
 
 ### Login
+
 ```
 POST /auth/login
 ```
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -57,6 +65,7 @@ POST /auth/login
 ```
 
 **Response:**
+
 ```json
 {
   "user": {
@@ -74,6 +83,7 @@ POST /auth/login
 ## User Endpoints
 
 ### Get Current User
+
 ```
 GET /user/me
 ```
@@ -81,6 +91,7 @@ GET /user/me
 **Headers:** `Authorization: Bearer <token>`
 
 **Response:**
+
 ```json
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
@@ -93,6 +104,7 @@ GET /user/me
 ```
 
 ### Get User's Owned Icons
+
 ```
 GET /user/icons
 ```
@@ -100,10 +112,12 @@ GET /user/icons
 **Headers:** `Authorization: Bearer <token>`
 
 **Query Parameters:**
+
 - `page` (optional): Page number (default: 1)
 - `limit` (optional): Items per page (default: 20, max: 100)
 
 **Response:**
+
 ```json
 {
   "icons": [
@@ -129,11 +143,13 @@ GET /user/icons
 ## Currency Endpoints
 
 ### Get Currency Packages
+
 ```
 GET /currency/packages
 ```
 
 **Response:**
+
 ```json
 {
   "packages": [
@@ -158,6 +174,7 @@ GET /currency/packages
 ```
 
 ### Purchase Currency
+
 ```
 POST /currency/purchase
 ```
@@ -165,6 +182,7 @@ POST /currency/purchase
 **Headers:** `Authorization: Bearer <token>`
 
 **Request Body:**
+
 ```json
 {
   "package_id": "pkg-2",
@@ -174,6 +192,7 @@ POST /currency/purchase
 ```
 
 **Response:**
+
 ```json
 {
   "transaction": {
@@ -187,6 +206,7 @@ POST /currency/purchase
 ```
 
 ### Get Transaction History
+
 ```
 GET /currency/transactions
 ```
@@ -194,11 +214,13 @@ GET /currency/transactions
 **Headers:** `Authorization: Bearer <token>`
 
 **Query Parameters:**
+
 - `page` (optional): Page number
 - `limit` (optional): Items per page
 - `type` (optional): Filter by transaction type
 
 **Response:**
+
 ```json
 {
   "transactions": [
@@ -232,17 +254,20 @@ GET /currency/transactions
 ## Icon Pack Endpoints
 
 ### List Icon Packs
+
 ```
 GET /packs
 ```
 
 **Query Parameters:**
+
 - `page` (optional): Page number
 - `limit` (optional): Items per page
 - `search` (optional): Search by name
 - `sort` (optional): Sort by: `price_asc`, `price_desc`, `newest`, `popular`
 
 **Response:**
+
 ```json
 {
   "packs": [
@@ -266,11 +291,13 @@ GET /packs
 ```
 
 ### Get Pack Details
+
 ```
 GET /packs/:pack_id
 ```
 
 **Response:**
+
 ```json
 {
   "id": "pack-1",
@@ -292,6 +319,7 @@ GET /packs/:pack_id
 ```
 
 ### Purchase Random Icon from Pack
+
 ```
 POST /packs/:pack_id/purchase
 ```
@@ -299,6 +327,7 @@ POST /packs/:pack_id/purchase
 **Headers:** `Authorization: Bearer <token>`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -318,6 +347,7 @@ POST /packs/:pack_id/purchase
 ```
 
 **Error Response (Insufficient Balance):**
+
 ```json
 {
   "error": "insufficient_balance",
@@ -328,6 +358,7 @@ POST /packs/:pack_id/purchase
 ```
 
 **Error Response (All Icons Unlocked):**
+
 ```json
 {
   "error": "pack_complete",
@@ -342,6 +373,7 @@ POST /packs/:pack_id/purchase
 All endpoints may return these standard error formats:
 
 ### 400 Bad Request
+
 ```json
 {
   "error": "validation_error",
@@ -353,6 +385,7 @@ All endpoints may return these standard error formats:
 ```
 
 ### 401 Unauthorized
+
 ```json
 {
   "error": "unauthorized",
@@ -361,6 +394,7 @@ All endpoints may return these standard error formats:
 ```
 
 ### 404 Not Found
+
 ```json
 {
   "error": "not_found",
@@ -369,6 +403,7 @@ All endpoints may return these standard error formats:
 ```
 
 ### 429 Rate Limited
+
 ```json
 {
   "error": "rate_limited",
@@ -378,6 +413,7 @@ All endpoints may return these standard error formats:
 ```
 
 ### 500 Internal Server Error
+
 ```json
 {
   "error": "internal_error",
@@ -395,6 +431,7 @@ All endpoints may return these standard error formats:
 - Read endpoints: 100 requests per minute
 
 Rate limit headers included in responses:
+
 ```
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95

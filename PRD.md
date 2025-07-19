@@ -1,4 +1,5 @@
 # Product Requirements Document (PRD)
+
 ## Virtual Currency Icon Pack System
 
 ### 1. Executive Summary
@@ -8,9 +9,11 @@ This document outlines the requirements for a virtual currency-based icon pack m
 ### 2. Product Overview
 
 #### 2.1 Vision
+
 Create an engaging marketplace where users can discover, purchase, and collect high-quality icon packs using virtual currency, fostering user engagement and monetization opportunities.
 
 #### 2.2 Goals
+
 - Provide a seamless purchasing experience for digital icon packs
 - Implement a secure virtual currency system
 - Create an engaging storefront for icon pack discovery
@@ -20,6 +23,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 ### 3. User Stories
 
 #### 3.1 As a User
+
 - I want to browse available icon packs so I can find ones I like
 - I want to preview icons before purchasing so I know what I'm buying
 - I want to purchase icon packs using virtual currency
@@ -30,6 +34,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 - I want to filter and search for specific icon packs
 
 #### 3.2 As an Administrator
+
 - I want to add new icon packs to the store
 - I want to set and modify icon pack prices
 - I want to view sales analytics
@@ -39,6 +44,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 ### 4. Functional Requirements
 
 #### 4.1 User Management
+
 - **User Registration/Login**
   - Email/password authentication
   - OAuth integration (Google, Apple, Facebook)
@@ -46,12 +52,12 @@ Create an engaging marketplace where users can discover, purchase, and collect h
   - Password reset functionality
 
 #### 4.2 Virtual Currency System
+
 - **Currency Management**
   - Display current balance
   - Purchase currency with real money
   - Transaction history
   - Currency packages (e.g., 100 coins for $0.99, 500 for $4.99)
-  
 - **Security Requirements**
   - Server-side balance validation
   - Transaction logging
@@ -59,6 +65,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
   - Secure payment processing
 
 #### 4.3 Icon Pack Store
+
 - **Browse & Discovery**
   - Grid/list view of available packs
   - Categories (e.g., Nature, Technology, Abstract)
@@ -76,6 +83,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
   - User ratings/reviews (optional)
 
 #### 4.4 Purchase System
+
 - **Purchase Flow**
   - Add to cart functionality
   - Balance check before purchase
@@ -90,6 +98,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
   - Re-download capability
 
 #### 4.5 Icon Management
+
 - **User Library**
   - View all owned icon packs
   - Browse individual icons
@@ -105,29 +114,35 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 ### 5. Non-Functional Requirements
 
 #### 5.2 Security
+
 - Rate limiting on API endpoints
 
 #### 5.3 Scalability
+
 - CDN for icon delivery
 - Horizontal scaling capability
 
 #### 5.4 Reliability
+
 - Transaction rollback capability
 - Error handling and recovery
 
 ### 6. Technical Architecture
 
 #### 6.1 Containerization
+
 - **Docker**: Full application containerization
 - **Docker Compose**: Multi-service orchestration
 - **Container Registry**: Image storage and versioning
 
 #### 6.2 Frontend
+
 - **Web App**: React
 - **State Management**: Redux
 - **UI Library**: ShadCN
 
 #### 6.3 Backend
+
 - **API**: RESTful
 - **Framework**: Node.js/Express
 - **Authentication**: JWT tokens
@@ -135,6 +150,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 - **Container**: Node.js Alpine Docker container
 
 #### 6.4 Database
+
 - **Primary DB**: PostgreSQL
   - Users table
   - Currency_transactions table
@@ -151,6 +167,7 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 - **Container**: Official Redis Docker image
 
 #### 6.5 Storage
+
 - **Icon Files**: CDN/Cloud storage integration
 - **Container Volumes**: Persistent data storage
 
@@ -165,13 +182,13 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 
 ### 11. Risks & Mitigation
 
-| Risk | Impact | Mitigation Strategy |
-|------|--------|-------------------|
-| Payment processing failures | High | Multiple payment provider fallbacks |
-| Icon copyright issues | High | Strict vetting process for submissions |
-| Currency exploitation | High | Server-side validation, rate limiting |
-| Scalability issues | Medium | Cloud infrastructure, load testing |
-| Low user adoption | Medium | Marketing campaign, launch incentives |
+| Risk                        | Impact | Mitigation Strategy                    |
+| --------------------------- | ------ | -------------------------------------- |
+| Payment processing failures | High   | Multiple payment provider fallbacks    |
+| Icon copyright issues       | High   | Strict vetting process for submissions |
+| Currency exploitation       | High   | Server-side validation, rate limiting  |
+| Scalability issues          | Medium | Cloud infrastructure, load testing     |
+| Low user adoption           | Medium | Marketing campaign, launch incentives  |
 
 ### 12. Dependencies
 
@@ -182,10 +199,13 @@ Create an engaging marketplace where users can discover, purchase, and collect h
 ### 13. Appendix
 
 #### A. Mockups
+
 [Placeholder for UI mockups]
 
 #### B. Database Schema
+
 Schema.txt
 
 #### C. API Documentation
+
 API Documentation.txt
