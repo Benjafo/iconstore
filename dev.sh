@@ -12,4 +12,4 @@ docker-compose ps
 echo "====================================="
 echo "== Watching logs:"
 echo "====================================="
-docker-compose logs -fv
+docker-compose logs -f
