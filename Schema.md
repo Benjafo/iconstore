@@ -1,7 +1,7 @@
 ## TABLES
 
 ┌─────────────────────────────┐
-│ USERS │
+│ USERS                       │
 ├─────────────────────────────┤
 │ id (PK) UUID │
 │ email VARCHAR │
@@ -17,17 +17,17 @@
 │ 1:N
 ▼
 ┌─────────────────────────────┐ ┌─────────────────────────────┐
-│ CURRENCY_TRANSACTIONS │ │ CURRENCY_PACKAGES │
+│ CURRENCY_TRANSACTIONS       │ │ CURRENCY_PACKAGES │
 ├─────────────────────────────┤ ├─────────────────────────────┤
-│ id (PK) UUID │ │ id (PK) UUID │
-│ user_id (FK) UUID │ │ name VARCHAR │
-│ type ENUM │ │ currency_amount INTEGER │
-│ amount INTEGER │ │ price_cents INTEGER │
-│ balance_after INTEGER │ │ bonus_amount INTEGER │
-│ reference_type VARCHAR │ │ is_active BOOLEAN │
-│ reference_id UUID │ │ created_at TIMESTAMP │
-│ description TEXT │ └─────────────────────────────┘
-│ created_at TIMESTAMP │
+│ id (PK) UUID                │ │ id (PK) UUID │
+│ user_id (FK) UUID           │ │ name VARCHAR │
+│ type ENUM                   │ │ currency_amount INTEGER │
+│ amount INTEGER              │ │ price_cents INTEGER │
+│ balance_after INTEGER       │ │ bonus_amount INTEGER │
+│ reference_type VARCHAR      │ │ is_active BOOLEAN │
+│ reference_id UUID           │ │ created_at TIMESTAMP │
+│ description TEXT            │ └─────────────────────────────┘
+│ created_at TIMESTAMP        │
 └─────────────────────────────┘
 
 ┌─────────────────────────────┐
@@ -58,20 +58,20 @@
 │ created_at TIMESTAMP │
 └─────────────────────────────┘
 
-┌─────────────────────────────┐ ┌─────────────────────────────┐
-│ PURCHASES │ │ USER_OWNED_ICONS │
-├─────────────────────────────┤ ├─────────────────────────────┤
-│ id (PK) UUID │ │ user_id (FK) UUID │
-│ user_id (FK) UUID │ │ icon_id (FK) UUID │
-│ pack_id (FK) UUID │ │ unlocked_at TIMESTAMP │
-│ icon_id (FK) UUID │ │ PRIMARY KEY (user_id,icon_id)│
-│ price_paid INTEGER │ └─────────────────────────────┘
-│ transaction_id UUID │ ▲
-│ purchased_at TIMESTAMP │ │
-└─────────────────────────────┘ │
-│ │
-└─────────────────────────────────┘
-Creates entry in
+┌─────────────────────────────┐ ┌──────────────────────────────┐
+│ PURCHASES                   │ │ USER_OWNED_ICONS             │
+├─────────────────────────────┤ ├──────────────────────────────┤
+│ id (PK) UUID                │ │ user_id (FK) UUID            │
+│ user_id (FK) UUID           │ │ icon_id (FK) UUID            │
+│ pack_id (FK) UUID           │ │ unlocked_at TIMESTAMP        │
+│ icon_id (FK) UUID           │ │ PRIMARY KEY (user_id,icon_id)│
+│ price_paid INTEGER          │ └──────────────────────────────┘
+│ transaction_id UUID         │               ▲
+│ purchased_at TIMESTAMP      │               │
+└─────────────────────────────┘               │
+            │                                 │
+            └─────────────────────────────────┘
+                      Creates entry in
 
 ## ENUM TYPES
 
