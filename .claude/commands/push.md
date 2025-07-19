@@ -2,16 +2,20 @@
 allowed-tools: all
 description: Push local changes to remote feature branch
 ---
+
 # Push to Remote
+
 Push local commits on current feature branch to remote origin with upstream tracking.
 Usage: `/push [branch-name]`
 The command will:
+
 1. Check if on a feature branch (not main/master)
 2. Verify there are local commits to push
 3. Push branch to origin with upstream tracking
 4. Show push summary
 
 Execute:
+
 ```bash
 #!/bin/bash
 BRANCH_NAME="$1"
@@ -76,3 +80,4 @@ else
     echo "❌ Failed to push branch: $BRANCH_NAME"
     exit 1
 fi
+```

@@ -1,5 +1,6 @@
 ### `.claude/commands/pr.md`
-```markdown
+
+````markdown
 ---
 allowed-tools: all
 description: Prepare current branch for pull request
@@ -8,6 +9,7 @@ description: Prepare current branch for pull request
 # Prepare Pull Request
 
 Prepare the current feature branch for a pull request by:
+
 1. Squashing checkpoint commits into meaningful commits
 2. Running all checks
 3. Pushing to origin
@@ -31,7 +33,7 @@ echo "🔧 Preparing branch $CURRENT_BRANCH for pull request..."
 CHECKPOINT_COUNT=$(git log --oneline origin/$CURRENT_BRANCH..HEAD | grep "checkpoint:" | wc -l)
 if [ "$CHECKPOINT_COUNT" -gt 0 ]; then
     echo "📦 Found $CHECKPOINT_COUNT checkpoint commits to squash..."
-    
+
     # Interactive rebase to squash
     echo "Opening interactive rebase. Squash checkpoint commits into meaningful commits."
     git rebase -i origin/$CURRENT_BRANCH
@@ -78,3 +80,5 @@ echo ""
 echo "## Related Issues"
 echo "Closes #[issue-number]"
 echo "---END TEMPLATE---"
+```
+````

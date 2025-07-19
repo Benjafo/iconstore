@@ -1,5 +1,6 @@
 ### `.claude/commands/sync.md`
-```markdown
+
+````markdown
 ---
 allowed-tools: all
 description: Sync feature branch with main/master
@@ -66,3 +67,5 @@ if [ "$STASHED" = true ]; then
 fi
 
 echo "✅ Successfully synced with $MAIN_BRANCH"
+```
+````

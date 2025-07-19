@@ -2,10 +2,13 @@
 allowed-tools: all
 description: Clean up merged feature branch locally and remotely
 ---
+
 # Cleanup Merged Branch
+
 Clean up a feature branch that has been merged by switching to master, updating it, and deleting the branch both locally and remotely.
 Usage: `/cleanup [branch-name]`
 The command will:
+
 1. Switch to master/main branch
 2. Pull latest changes
 3. Delete local feature branch
@@ -13,6 +16,7 @@ The command will:
 5. Show cleanup summary
 
 Execute:
+
 ```bash
 #!/bin/bash
 BRANCH_NAME="$1"
@@ -124,3 +128,4 @@ echo "✅ Switched to: $MAIN_BRANCH"
 echo "✅ Local branch deleted: $BRANCH_NAME"
 echo "✅ Remote branch deleted: origin/$BRANCH_NAME"
 echo "💡 You're now on the updated $MAIN_BRANCH branch"
+```
