@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  frontend:
+  client:
     build: ./client
     ports:
       - "5173:5173"
@@ -10,10 +10,12 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - FAST_REFRESH=true
     depends_on:
-      - backend
+      - server
 
-  backend:
+  server:
     build: ./server
     ports:
       - "3000:3000"
@@ -22,3 +24,5 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - FAST_REFRESH=true
