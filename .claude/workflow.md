@@ -15,7 +15,7 @@ claude
 
 Read and STRICTLY FOLLOW the instructions in .claude/CLAUDE.md. Let me know when you have read the document and are ready to begin the CORE WORKFLOW.
 
-# 4. Periodically squash commits as tasks are completed
+# 4. (Optional) periodically squash commits as tasks are completed
 
 /squash
 
@@ -31,6 +31,6 @@ Read and STRICTLY FOLLOW the instructions in .claude/CLAUDE.md. Let me know when
 
 Brief description of what this PR does and why it's needed.
 
-# 8. Clean up (optional)
+# 8. (Optional) clean up
 
 /cleanup

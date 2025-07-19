@@ -19,7 +19,7 @@ This roadmap outlines the sequential steps to build the MVP version of the Virtu
 [x] Set up Docker Compose configuration with hot reloading for full stack
 [x] Set up Dockerfile for frontend application
 [x] Set up Dockerfile for backend API
-[] Configure Docker networking for service communication
+[] ~~Configure Docker networking for service communication~~
 
 ### 1.3 Database Setup
 
@@ -32,10 +32,10 @@ This roadmap outlines the sequential steps to build the MVP version of the Virtu
 ### 1.4 Development Environment
 
 [] Configure environment variables with Docker secrets
-[] Set up logging infrastructure with Docker logs
-[] Create docker-compose.dev.yml for local development
-[] Set up hot-reloading for development containers
-[] Create development scripts
+[x] Set up logging infrastructure with Docker logs
+[x] Set up hot-reloading for development containers
+[x] Create development scripts
+[] Create CI/CD scripts for client, server, and database
 
 ## Phase 2: Authentication System
 
