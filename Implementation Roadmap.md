@@ -15,10 +15,10 @@ This roadmap outlines the sequential steps to build the MVP version of the Virtu
 
 ### 1.2 Docker Configuration
 
-[] Create development Docker configuration
-[] Set up Docker Compose configuration with hot reloading for full stack
-[] Set up Dockerfile for frontend application
-[] Set up Dockerfile for backend API
+[x] Create development Docker configuration
+[x] Set up Docker Compose configuration with hot reloading for full stack
+[x] Set up Dockerfile for frontend application
+[x] Set up Dockerfile for backend API
 [] Configure Docker networking for service communication
 
 ### 1.3 Database Setup
