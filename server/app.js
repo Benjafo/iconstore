@@ -4,9 +4,13 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
+import cors from 'cors';
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
+import authRouter from './routes/auth.js';
+import { apiRateLimit } from './middleware/rateLimiter.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
