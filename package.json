@@ -13,8 +13,8 @@
     "lint:fix": "npm run lint:fix --workspaces",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "type-check": "npm run type-check --workspace=client",
-    "postinstall": "npm install --workspaces"
+    "test": "npm run test --workspace=server",
+    "type-check": "npm run type-check --workspace=client"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
