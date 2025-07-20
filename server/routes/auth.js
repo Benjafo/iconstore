@@ -15,6 +15,7 @@ import {
   getRecentFailedAttempts,
   authenticateToken,
 } from '../middleware/auth.js';
+import { authRateLimit, refreshRateLimit } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 const { Pool } = pg;

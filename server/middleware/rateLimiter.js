@@ -10,7 +10,7 @@ export const authRateLimit = rateLimit({
   message: {
     error: 'rate_limited',
     message: 'Too many authentication attempts',
-    retry_after: 900 // 15 minutes
+    retry_after: 900, // 15 minutes
   },
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
@@ -26,7 +26,7 @@ export const refreshRateLimit = rateLimit({
   message: {
     error: 'rate_limited',
     message: 'Too many token refresh attempts',
-    retry_after: 900
+    retry_after: 900,
   },
   standardHeaders: true,
   legacyHeaders: false,
@@ -42,7 +42,7 @@ export const apiRateLimit = rateLimit({
   message: {
     error: 'rate_limited',
     message: 'Too many API requests',
-    retry_after: 900
+    retry_after: 900,
   },
   standardHeaders: true,
   legacyHeaders: false,
@@ -58,7 +58,7 @@ export const strictRateLimit = rateLimit({
   message: {
     error: 'rate_limited',
     message: 'Too many sensitive operation attempts',
-    retry_after: 3600 // 1 hour
+    retry_after: 3600, // 1 hour
   },
   standardHeaders: true,
   legacyHeaders: false,
