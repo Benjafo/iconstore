@@ -15,7 +15,7 @@ class DatabaseTester {
       'icons',
       'purchases',
       'user_owned_icons',
-      'schema_migrations'
+      'schema_migrations',
     ];
   }
 
@@ -32,7 +32,9 @@ class DatabaseTester {
    */
   async testConnection() {
     const result = await this.client.query('SELECT NOW() as current_time');
-    console.log(`✅ Database query successful - Current time: ${result.rows[0].current_time}`);
+    console.log(
+      `✅ Database query successful - Current time: ${result.rows[0].current_time}`
+    );
   }
 
   /**
@@ -45,12 +47,12 @@ class DatabaseTester {
       WHERE table_schema = 'public' 
       ORDER BY table_name
     `;
-    
+
     const result = await this.client.query(query);
     const existingTables = result.rows.map(row => row.table_name);
-    
+
     console.log('\n📋 Table verification:');
-    
+
     const missingTables = [];
     for (const table of this.expectedTables) {
       if (existingTables.includes(table)) {
@@ -60,11 +62,11 @@ class DatabaseTester {
         missingTables.push(table);
       }
     }
-    
+
     if (missingTables.length > 0) {
       throw new Error(`Missing tables: ${missingTables.join(', ')}`);
     }
-    
+
     console.log(`\n✅ All ${this.expectedTables.length} expected tables found`);
   }
 
@@ -73,7 +75,7 @@ class DatabaseTester {
    */
   async verifySchemas() {
     console.log('\n🔍 Schema verification:');
-    
+
     // Test users table structure
     const usersQuery = `
       SELECT column_name, data_type, is_nullable 
@@ -83,7 +85,7 @@ class DatabaseTester {
     `;
     const usersResult = await this.client.query(usersQuery);
     console.log(`  ✅ users table has ${usersResult.rows.length} columns`);
-    
+
     // Verify UUID primary keys
     const pkQuery = `
       SELECT tc.table_name, kcu.column_name
@@ -96,7 +98,7 @@ class DatabaseTester {
     `;
     const pkResult = await this.client.query(pkQuery);
     console.log(`  ✅ ${pkResult.rows.length} primary key constraints found`);
-    
+
     // Verify foreign key relationships
     const fkQuery = `
       SELECT 
@@ -128,16 +130,26 @@ class DatabaseTester {
       WHERE t.typname = 'transaction_type'
       ORDER BY e.enumsortorder
     `;
-    
+
     const result = await this.client.query(enumQuery);
     const enumValues = result.rows.map(row => row.enumlabel);
-    const expectedValues = ['purchase', 'refund', 'bonus', 'admin_adjustment', 'currency_buy'];
-    
+    const expectedValues = [
+      'purchase',
+      'refund',
+      'bonus',
+      'admin_adjustment',
+      'currency_buy',
+    ];
+
     console.log('\n🎯 ENUM verification:');
-    console.log(`  ✅ transaction_type enum with values: ${enumValues.join(', ')}`);
-    
+    console.log(
+      `  ✅ transaction_type enum with values: ${enumValues.join(', ')}`
+    );
+
     if (enumValues.length !== expectedValues.length) {
-      throw new Error(`Expected ${expectedValues.length} enum values, found ${enumValues.length}`);
+      throw new Error(
+        `Expected ${expectedValues.length} enum values, found ${enumValues.length}`
+      );
     }
   }
 
@@ -146,28 +158,28 @@ class DatabaseTester {
    */
   async testBasicOperations() {
     console.log('\n🧪 Basic operations test:');
-    
+
     // Test insert
     const testUser = {
       email: 'test@example.com',
       username: 'testuser',
-      password_hash: 'hashed_password_123'
+      password_hash: 'hashed_password_123',
     };
-    
+
     const insertResult = await this.client.query(
       'INSERT INTO users (email, username, password_hash) VALUES ($1, $2, $3) RETURNING id',
       [testUser.email, testUser.username, testUser.password_hash]
     );
     const userId = insertResult.rows[0].id;
     console.log(`  ✅ Insert test user - ID: ${userId}`);
-    
+
     // Test select
     const selectResult = await this.client.query(
       'SELECT email, username FROM users WHERE id = $1',
       [userId]
     );
     console.log(`  ✅ Select test user - Email: ${selectResult.rows[0].email}`);
-    
+
     // Test cleanup
     await this.client.query('DELETE FROM users WHERE id = $1', [userId]);
     console.log('  ✅ Cleanup test data');
@@ -180,10 +192,12 @@ class DatabaseTester {
     const result = await this.client.query(
       'SELECT version, applied_at FROM schema_migrations ORDER BY version'
     );
-    
+
     console.log('\n📊 Migration status:');
     result.rows.forEach(row => {
-      console.log(`  ✅ ${row.version} - Applied: ${row.applied_at.toISOString()}`);
+      console.log(
+        `  ✅ ${row.version} - Applied: ${row.applied_at.toISOString()}`
+      );
     });
   }
 
@@ -201,17 +215,17 @@ class DatabaseTester {
  */
 async function main() {
   const databaseUrl = process.env.DATABASE_URL;
-  
+
   if (!databaseUrl) {
     console.error('❌ DATABASE_URL environment variable is required');
     process.exit(1);
   }
 
   const tester = new DatabaseTester(databaseUrl);
-  
+
   try {
     console.log('🚀 Starting database tests...\n');
-    
+
     await tester.connect();
     await tester.testConnection();
     await tester.verifyTables();
@@ -219,9 +233,8 @@ async function main() {
     await tester.verifyEnumTypes();
     await tester.testBasicOperations();
     await tester.verifyMigrations();
-    
+
     console.log('\n🎉 All database tests passed!');
-    
   } catch (error) {
     console.error('\n❌ Database test failed:', error.message);
     process.exit(1);
