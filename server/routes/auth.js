@@ -332,7 +332,7 @@ router.post('/refresh', refreshRateLimit, async (req, res) => {
     let decoded;
     try {
       decoded = verifyRefreshToken(refresh_token);
-    } catch (error) {
+    } catch {
       return res.status(401).json({
         error: 'invalid_token',
         message: 'Invalid or expired refresh token',
