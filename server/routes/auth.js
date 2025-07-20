@@ -13,7 +13,7 @@ import {
   isRefreshTokenValid,
   logLoginAttempt,
   getRecentFailedAttempts,
-  authenticateToken
+  authenticateToken,
 } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -34,7 +34,7 @@ const MAX_FAILED_ATTEMPTS = 5;
 /**
  * Validate password strength
  */
-const validatePassword = (password) => {
+const validatePassword = password => {
   if (password.length < 8) {
     return 'Password must be at least 8 characters long';
   }
@@ -53,9 +53,13 @@ const validatePassword = (password) => {
 /**
  * Get client IP address
  */
-const getClientIP = (req) => {
-  return req.ip || req.connection.remoteAddress || req.socket.remoteAddress || 
-         (req.connection.socket ? req.connection.socket.remoteAddress : null);
+const getClientIP = req => {
+  return (
+    req.ip ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    (req.connection.socket ? req.connection.socket.remoteAddress : null)
+  );
 };
 
 /**
@@ -76,8 +80,8 @@ router.post('/register', async (req, res) => {
         details: {
           email: !email ? 'Email is required' : null,
           username: !username ? 'Username is required' : null,
-          password: !password ? 'Password is required' : null
-        }
+          password: !password ? 'Password is required' : null,
+        },
       });
     }
 
@@ -86,7 +90,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         error: 'validation_error',
         message: 'Invalid email format',
-        details: { email: 'Invalid email format' }
+        details: { email: 'Invalid email format' },
       });
     }
 
@@ -95,7 +99,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         error: 'validation_error',
         message: 'Username must be between 3 and 30 characters',
-        details: { username: 'Username must be between 3 and 30 characters' }
+        details: { username: 'Username must be between 3 and 30 characters' },
       });
     }
 
@@ -103,7 +107,10 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         error: 'validation_error',
         message: 'Username can only contain letters, numbers, and underscores',
-        details: { username: 'Username can only contain letters, numbers, and underscores' }
+        details: {
+          username:
+            'Username can only contain letters, numbers, and underscores',
+        },
       });
     }
 
@@ -113,7 +120,7 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({
         error: 'validation_error',
         message: passwordError,
-        details: { password: passwordError }
+        details: { password: passwordError },
       });
     }
 
@@ -126,7 +133,7 @@ router.post('/register', async (req, res) => {
     if (existingUser.rows.length > 0) {
       const existing = existingUser.rows[0];
       const details = {};
-      
+
       if (existing.email === email.toLowerCase()) {
         details.email = 'Email is already registered';
       }
@@ -137,7 +144,7 @@ router.post('/register', async (req, res) => {
       return res.status(409).json({
         error: 'conflict',
         message: 'User already exists',
-        details
+        details,
       });
     }
 
@@ -157,13 +164,22 @@ router.post('/register', async (req, res) => {
     // Generate tokens
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
-    
+
     // Hash refresh token for storage
-    const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+    const refreshTokenHash = crypto
+      .createHash('sha256')
+      .update(refreshToken)
+      .digest('hex');
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
 
     // Store refresh token
-    await storeRefreshToken(user.id, refreshTokenHash, expiresAt, ipAddress, userAgent);
+    await storeRefreshToken(
+      user.id,
+      refreshTokenHash,
+      expiresAt,
+      ipAddress,
+      userAgent
+    );
 
     // Log successful registration
     await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, true);
@@ -174,20 +190,19 @@ router.post('/register', async (req, res) => {
         email: user.email,
         username: user.username,
         currency_balance: user.currency_balance,
-        created_at: user.created_at
+        created_at: user.created_at,
       },
       tokens: {
         access_token: accessToken,
         refresh_token: refreshToken,
-        expires_in: 900 // 15 minutes in seconds
-      }
+        expires_in: 900, // 15 minutes in seconds
+      },
     });
-
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Registration failed'
+      message: 'Registration failed',
     });
   }
 });
@@ -206,18 +221,27 @@ router.post('/login', async (req, res) => {
     if (!email || !password) {
       return res.status(400).json({
         error: 'validation_error',
-        message: 'Email and password are required'
+        message: 'Email and password are required',
       });
     }
 
     // Check for too many failed attempts
-    const failedAttempts = await getRecentFailedAttempts(email.toLowerCase(), ipAddress);
+    const failedAttempts = await getRecentFailedAttempts(
+      email.toLowerCase(),
+      ipAddress
+    );
     if (failedAttempts >= MAX_FAILED_ATTEMPTS) {
-      await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, false, 'too_many_attempts');
+      await logLoginAttempt(
+        email.toLowerCase(),
+        ipAddress,
+        userAgent,
+        false,
+        'too_many_attempts'
+      );
       return res.status(429).json({
         error: 'too_many_attempts',
         message: 'Too many failed login attempts. Please try again later.',
-        retry_after: 900 // 15 minutes
+        retry_after: 900, // 15 minutes
       });
     }
 
@@ -228,10 +252,16 @@ router.post('/login', async (req, res) => {
     );
 
     if (userResult.rows.length === 0) {
-      await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, false, 'user_not_found');
+      await logLoginAttempt(
+        email.toLowerCase(),
+        ipAddress,
+        userAgent,
+        false,
+        'user_not_found'
+      );
       return res.status(401).json({
         error: 'invalid_credentials',
-        message: 'Invalid email or password'
+        message: 'Invalid email or password',
       });
     }
 
@@ -239,39 +269,59 @@ router.post('/login', async (req, res) => {
 
     // Check if user is active
     if (!user.is_active) {
-      await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, false, 'account_deactivated');
+      await logLoginAttempt(
+        email.toLowerCase(),
+        ipAddress,
+        userAgent,
+        false,
+        'account_deactivated'
+      );
       return res.status(401).json({
         error: 'account_deactivated',
-        message: 'Account has been deactivated'
+        message: 'Account has been deactivated',
       });
     }
 
     // Verify password
     const passwordValid = await bcrypt.compare(password, user.password_hash);
     if (!passwordValid) {
-      await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, false, 'invalid_password');
+      await logLoginAttempt(
+        email.toLowerCase(),
+        ipAddress,
+        userAgent,
+        false,
+        'invalid_password'
+      );
       return res.status(401).json({
         error: 'invalid_credentials',
-        message: 'Invalid email or password'
+        message: 'Invalid email or password',
       });
     }
 
     // Generate tokens
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
-    
+
     // Hash refresh token for storage
-    const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+    const refreshTokenHash = crypto
+      .createHash('sha256')
+      .update(refreshToken)
+      .digest('hex');
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
 
     // Store refresh token
-    await storeRefreshToken(user.id, refreshTokenHash, expiresAt, ipAddress, userAgent);
+    await storeRefreshToken(
+      user.id,
+      refreshTokenHash,
+      expiresAt,
+      ipAddress,
+      userAgent
+    );
 
     // Update last login
-    await pool.query(
-      'UPDATE users SET last_login = NOW() WHERE id = $1',
-      [user.id]
-    );
+    await pool.query('UPDATE users SET last_login = NOW() WHERE id = $1', [
+      user.id,
+    ]);
 
     // Log successful login
     await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, true);
@@ -281,20 +331,19 @@ router.post('/login', async (req, res) => {
         id: user.id,
         email: user.email,
         username: user.username,
-        currency_balance: user.currency_balance
+        currency_balance: user.currency_balance,
       },
       tokens: {
         access_token: accessToken,
         refresh_token: refreshToken,
-        expires_in: 900 // 15 minutes in seconds
-      }
+        expires_in: 900, // 15 minutes in seconds
+      },
     });
-
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Login failed'
+      message: 'Login failed',
     });
   }
 });
@@ -310,7 +359,7 @@ router.post('/refresh', async (req, res) => {
     if (!refresh_token) {
       return res.status(400).json({
         error: 'validation_error',
-        message: 'Refresh token is required'
+        message: 'Refresh token is required',
       });
     }
 
@@ -321,19 +370,22 @@ router.post('/refresh', async (req, res) => {
     } catch (error) {
       return res.status(401).json({
         error: 'invalid_token',
-        message: 'Invalid or expired refresh token'
+        message: 'Invalid or expired refresh token',
       });
     }
 
     // Hash token to check in database
-    const tokenHash = crypto.createHash('sha256').update(refresh_token).digest('hex');
-    
+    const tokenHash = crypto
+      .createHash('sha256')
+      .update(refresh_token)
+      .digest('hex');
+
     // Check if refresh token exists and is valid
     const tokenData = await isRefreshTokenValid(tokenHash);
     if (!tokenData) {
       return res.status(401).json({
         error: 'invalid_token',
-        message: 'Refresh token is invalid or expired'
+        message: 'Refresh token is invalid or expired',
       });
     }
 
@@ -347,7 +399,7 @@ router.post('/refresh', async (req, res) => {
       await revokeRefreshToken(tokenHash);
       return res.status(401).json({
         error: 'invalid_user',
-        message: 'User not found or deactivated'
+        message: 'User not found or deactivated',
       });
     }
 
@@ -358,14 +410,13 @@ router.post('/refresh', async (req, res) => {
 
     res.json({
       access_token: accessToken,
-      expires_in: 900 // 15 minutes in seconds
+      expires_in: 900, // 15 minutes in seconds
     });
-
   } catch (error) {
     console.error('Token refresh error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Token refresh failed'
+      message: 'Token refresh failed',
     });
   }
 });
@@ -379,19 +430,21 @@ router.post('/logout', authenticateToken, async (req, res) => {
     const { refresh_token } = req.body;
 
     if (refresh_token) {
-      const tokenHash = crypto.createHash('sha256').update(refresh_token).digest('hex');
+      const tokenHash = crypto
+        .createHash('sha256')
+        .update(refresh_token)
+        .digest('hex');
       await revokeRefreshToken(tokenHash);
     }
 
     res.json({
-      message: 'Logged out successfully'
+      message: 'Logged out successfully',
     });
-
   } catch (error) {
     console.error('Logout error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Logout failed'
+      message: 'Logout failed',
     });
   }
 });
@@ -405,14 +458,13 @@ router.post('/logout-all', authenticateToken, async (req, res) => {
     await revokeAllUserTokens(req.user.id);
 
     res.json({
-      message: 'Logged out from all devices successfully'
+      message: 'Logged out from all devices successfully',
     });
-
   } catch (error) {
     console.error('Logout all error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Logout failed'
+      message: 'Logout failed',
     });
   }
 });
