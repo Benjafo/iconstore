@@ -180,45 +180,19 @@ export const isRefreshTokenValid = async tokenHash => {
 };
 
 /**
- * Log login attempt
+ * Log security audit event (only for successful critical events)
  */
-export const logLoginAttempt = async (
-  email,
-  ipAddress,
-  userAgent,
-  successful,
-  failureReason = null
-) => {
+export const logSecurityAudit = async (userId, eventType, ipAddress, userAgent, metadata = {}) => {
   try {
     await pool.query(
-      `INSERT INTO login_attempts (email, ip_address, user_agent, successful, failure_reason)
+      `INSERT INTO security_audit (user_id, event_type, ip_address, user_agent, metadata)
        VALUES ($1, $2, $3, $4, $5)`,
-      [email, ipAddress, userAgent, successful, failureReason]
+      [userId, eventType, ipAddress, userAgent, JSON.stringify(metadata)]
     );
   } catch (error) {
-    console.error('Failed to log login attempt:', error);
+    console.error('Failed to log security audit:', error);
   }
 };
 
-/**
- * Check for recent failed login attempts (rate limiting)
- */
-export const getRecentFailedAttempts = async (
-  email,
-  ipAddress,
-  minutes = 15
-) => {
-  try {
-    const result = await pool.query(
-      `SELECT COUNT(*) as count FROM login_attempts 
-       WHERE (email = $1 OR ip_address = $2) 
-       AND successful = FALSE 
-       AND attempted_at > NOW() - INTERVAL '${minutes} minutes'`,
-      [email, ipAddress]
-    );
-    return parseInt(result.rows[0].count);
-  } catch (error) {
-    console.error('Failed to check failed attempts:', error);
-    return 0;
-  }
-};
+// Failed login attempts are now handled by express-rate-limit middleware
+// No need for database tracking of failed attempts
