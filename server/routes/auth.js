@@ -183,7 +183,7 @@ router.post('/register', authRateLimit, async (req, res) => {
     // Log successful registration
     await logSecurityAudit(user.id, 'registration', ipAddress, userAgent, {
       email: user.email,
-      username: user.username
+      username: user.username,
     });
 
     res.status(201).json({
@@ -288,7 +288,7 @@ router.post('/login', authRateLimit, async (req, res) => {
 
     // Log successful login
     await logSecurityAudit(user.id, 'login', ipAddress, userAgent, {
-      email: user.email
+      email: user.email,
     });
 
     res.json({

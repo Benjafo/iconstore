@@ -102,15 +102,11 @@ export const generateRefreshToken = userId => {
  * Verify refresh token
  */
 export const verifyRefreshToken = token => {
-  try {
-    const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
-    if (decoded.type !== 'refresh') {
-      throw new Error('Invalid token type');
-    }
-    return decoded;
-  } catch (error) {
-    throw error;
+  const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
+  if (decoded.type !== 'refresh') {
+    throw new Error('Invalid token type');
   }
+  return decoded;
 };
 
 /**
