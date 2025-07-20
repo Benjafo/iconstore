@@ -22,7 +22,7 @@ class MigrationRunner {
    */
   async initialize() {
     await this.client.connect();
-    
+
     // Create migrations tracking table
     await this.client.query(`
       CREATE TABLE IF NOT EXISTS schema_migrations (
@@ -48,12 +48,12 @@ class MigrationRunner {
   async getAvailableMigrations() {
     try {
       const files = await fs.readdir(this.migrationsDir);
-      return files
-        .filter(file => file.endsWith('.sql'))
-        .sort();
+      return files.filter(file => file.endsWith('.sql')).sort();
     } catch (error) {
       if (error.code === 'ENOENT') {
-        throw new Error(`Migrations directory not found: ${this.migrationsDir}`);
+        throw new Error(
+          `Migrations directory not found: ${this.migrationsDir}`
+        );
       }
       throw error;
     }
@@ -65,24 +65,26 @@ class MigrationRunner {
   async executeMigration(filename) {
     const filePath = path.join(this.migrationsDir, filename);
     const sql = await fs.readFile(filePath, 'utf8');
-    
+
     // Execute within transaction
     await this.client.query('BEGIN');
     try {
       await this.client.query(sql);
-      
+
       // Record migration as applied
       const version = filename.replace('.sql', '');
       await this.client.query(
         'INSERT INTO schema_migrations (version) VALUES ($1)',
         [version]
       );
-      
+
       await this.client.query('COMMIT');
       console.log(`✅ Applied migration: ${filename}`);
     } catch (error) {
       await this.client.query('ROLLBACK');
-      throw new Error(`Failed to apply migration ${filename}: ${error.message}`);
+      throw new Error(
+        `Failed to apply migration ${filename}: ${error.message}`
+      );
     }
   }
 
@@ -92,7 +94,7 @@ class MigrationRunner {
   async migrate() {
     const applied = await this.getAppliedMigrations();
     const available = await this.getAvailableMigrations();
-    
+
     const pending = available.filter(file => {
       const version = file.replace('.sql', '');
       return !applied.includes(version);
@@ -104,11 +106,11 @@ class MigrationRunner {
     }
 
     console.log(`📋 Running ${pending.length} migration(s):`);
-    
+
     for (const migration of pending) {
       await this.executeMigration(migration);
     }
-    
+
     console.log('🎉 All migrations completed successfully');
   }
 
@@ -125,14 +127,14 @@ class MigrationRunner {
  */
 async function main() {
   const databaseUrl = process.env.DATABASE_URL;
-  
+
   if (!databaseUrl) {
     console.error('❌ DATABASE_URL environment variable is required');
     process.exit(1);
   }
 
   const runner = new MigrationRunner(databaseUrl);
-  
+
   try {
     await runner.initialize();
     await runner.migrate();
