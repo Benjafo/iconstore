@@ -12,8 +12,11 @@ const pool = new Pool({
   port: process.env.DB_PORT || 5432,
 });
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your-super-secret-refresh-key-change-in-production';
+const JWT_SECRET =
+  process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
+const JWT_REFRESH_SECRET =
+  process.env.JWT_REFRESH_SECRET ||
+  'your-super-secret-refresh-key-change-in-production';
 
 /**
  * Middleware to authenticate JWT tokens
@@ -26,12 +29,12 @@ export const authenticateToken = async (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         error: 'unauthorized',
-        message: 'Access token required'
+        message: 'Access token required',
       });
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-    
+
     // Get user from database to ensure they still exist and are active
     const userResult = await pool.query(
       'SELECT id, email, username, currency_balance, is_active FROM users WHERE id = $1',
@@ -41,16 +44,16 @@ export const authenticateToken = async (req, res, next) => {
     if (userResult.rows.length === 0) {
       return res.status(401).json({
         error: 'unauthorized',
-        message: 'User not found'
+        message: 'User not found',
       });
     }
 
     const user = userResult.rows[0];
-    
+
     if (!user.is_active) {
       return res.status(401).json({
         error: 'unauthorized',
-        message: 'Account is deactivated'
+        message: 'Account is deactivated',
       });
     }
 
@@ -60,21 +63,21 @@ export const authenticateToken = async (req, res, next) => {
     if (error.name === 'TokenExpiredError') {
       return res.status(401).json({
         error: 'token_expired',
-        message: 'Access token has expired'
+        message: 'Access token has expired',
       });
     }
-    
+
     if (error.name === 'JsonWebTokenError') {
       return res.status(401).json({
         error: 'invalid_token',
-        message: 'Invalid access token'
+        message: 'Invalid access token',
       });
     }
 
     console.error('Auth middleware error:', error);
     res.status(500).json({
       error: 'internal_error',
-      message: 'Authentication error'
+      message: 'Authentication error',
     });
   }
 };
@@ -82,29 +85,23 @@ export const authenticateToken = async (req, res, next) => {
 /**
  * Generate access token (short-lived)
  */
-export const generateAccessToken = (userId) => {
-  return jwt.sign(
-    { userId },
-    JWT_SECRET,
-    { expiresIn: '15m' }
-  );
+export const generateAccessToken = userId => {
+  return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '15m' });
 };
 
 /**
  * Generate refresh token (long-lived)
  */
-export const generateRefreshToken = (userId) => {
-  return jwt.sign(
-    { userId, type: 'refresh' },
-    JWT_REFRESH_SECRET,
-    { expiresIn: '7d' }
-  );
+export const generateRefreshToken = userId => {
+  return jwt.sign({ userId, type: 'refresh' }, JWT_REFRESH_SECRET, {
+    expiresIn: '7d',
+  });
 };
 
 /**
  * Verify refresh token
  */
-export const verifyRefreshToken = (token) => {
+export const verifyRefreshToken = token => {
   try {
     const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
     if (decoded.type !== 'refresh') {
@@ -119,7 +116,13 @@ export const verifyRefreshToken = (token) => {
 /**
  * Store refresh token in database
  */
-export const storeRefreshToken = async (userId, tokenHash, expiresAt, ipAddress, userAgent) => {
+export const storeRefreshToken = async (
+  userId,
+  tokenHash,
+  expiresAt,
+  ipAddress,
+  userAgent
+) => {
   try {
     const result = await pool.query(
       `INSERT INTO refresh_tokens (user_id, token_hash, expires_at, ip_address, user_agent) 
@@ -135,7 +138,7 @@ export const storeRefreshToken = async (userId, tokenHash, expiresAt, ipAddress,
 /**
  * Revoke refresh token
  */
-export const revokeRefreshToken = async (tokenHash) => {
+export const revokeRefreshToken = async tokenHash => {
   try {
     await pool.query(
       'UPDATE refresh_tokens SET is_revoked = TRUE WHERE token_hash = $1',
@@ -149,7 +152,7 @@ export const revokeRefreshToken = async (tokenHash) => {
 /**
  * Revoke all refresh tokens for a user
  */
-export const revokeAllUserTokens = async (userId) => {
+export const revokeAllUserTokens = async userId => {
   try {
     await pool.query(
       'UPDATE refresh_tokens SET is_revoked = TRUE WHERE user_id = $1',
@@ -163,7 +166,7 @@ export const revokeAllUserTokens = async (userId) => {
 /**
  * Check if refresh token exists and is valid
  */
-export const isRefreshTokenValid = async (tokenHash) => {
+export const isRefreshTokenValid = async tokenHash => {
   try {
     const result = await pool.query(
       `SELECT user_id FROM refresh_tokens 
@@ -179,7 +182,13 @@ export const isRefreshTokenValid = async (tokenHash) => {
 /**
  * Log login attempt
  */
-export const logLoginAttempt = async (email, ipAddress, userAgent, successful, failureReason = null) => {
+export const logLoginAttempt = async (
+  email,
+  ipAddress,
+  userAgent,
+  successful,
+  failureReason = null
+) => {
   try {
     await pool.query(
       `INSERT INTO login_attempts (email, ip_address, user_agent, successful, failure_reason)
@@ -194,7 +203,11 @@ export const logLoginAttempt = async (email, ipAddress, userAgent, successful, f
 /**
  * Check for recent failed login attempts (rate limiting)
  */
-export const getRecentFailedAttempts = async (email, ipAddress, minutes = 15) => {
+export const getRecentFailedAttempts = async (
+  email,
+  ipAddress,
+  minutes = 15
+) => {
   try {
     const result = await pool.query(
       `SELECT COUNT(*) as count FROM login_attempts 
