@@ -217,8 +217,12 @@ async function main() {
   const databaseUrl = process.env.DATABASE_URL || process.env.TEST_DATABASE_URL;
 
   if (!databaseUrl) {
-    console.error('❌ DATABASE_URL or TEST_DATABASE_URL environment variable is required');
-    console.error('💡 Copy .env.example to .env and configure your database connection');
+    console.error(
+      '❌ DATABASE_URL or TEST_DATABASE_URL environment variable is required'
+    );
+    console.error(
+      '💡 Copy .env.example to .env and configure your database connection'
+    );
     process.exit(1);
   }
 

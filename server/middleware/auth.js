@@ -195,6 +195,3 @@ export const logSecurityAudit = async (
     console.error('Failed to log security audit:', error);
   }
 };
-
-// Failed login attempts are now handled by express-rate-limit middleware
-// No need for database tracking of failed attempts
