@@ -67,7 +67,7 @@ const getClientIP = req => {
  * Register new user
  * POST /auth/register
  */
-router.post('/register', async (req, res) => {
+router.post('/register', authRateLimit, async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const ipAddress = getClientIP(req);
@@ -212,7 +212,7 @@ router.post('/register', async (req, res) => {
  * Login user
  * POST /auth/login
  */
-router.post('/login', async (req, res) => {
+router.post('/login', authRateLimit, async (req, res) => {
   try {
     const { email, password } = req.body;
     const ipAddress = getClientIP(req);
@@ -353,7 +353,7 @@ router.post('/login', async (req, res) => {
  * Refresh access token
  * POST /auth/refresh
  */
-router.post('/refresh', async (req, res) => {
+router.post('/refresh', refreshRateLimit, async (req, res) => {
   try {
     const { refresh_token } = req.body;
 
