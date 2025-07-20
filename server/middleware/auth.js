@@ -182,7 +182,13 @@ export const isRefreshTokenValid = async tokenHash => {
 /**
  * Log security audit event (only for successful critical events)
  */
-export const logSecurityAudit = async (userId, eventType, ipAddress, userAgent, metadata = {}) => {
+export const logSecurityAudit = async (
+  userId,
+  eventType,
+  ipAddress,
+  userAgent,
+  metadata = {}
+) => {
   try {
     await pool.query(
       `INSERT INTO security_audit (user_id, event_type, ip_address, user_agent, metadata)

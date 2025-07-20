@@ -11,8 +11,7 @@ import {
   revokeRefreshToken,
   revokeAllUserTokens,
   isRefreshTokenValid,
-  logLoginAttempt,
-  getRecentFailedAttempts,
+  logSecurityAudit,
   authenticateToken,
 } from '../middleware/auth.js';
 import { authRateLimit, refreshRateLimit } from '../middleware/rateLimiter.js';
@@ -30,7 +29,6 @@ const pool = new Pool({
 });
 
 const SALT_ROUNDS = 12;
-const MAX_FAILED_ATTEMPTS = 5;
 
 /**
  * Validate password strength
@@ -183,7 +181,10 @@ router.post('/register', authRateLimit, async (req, res) => {
     );
 
     // Log successful registration
-    await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, true);
+    await logSecurityAudit(user.id, 'registration', ipAddress, userAgent, {
+      email: user.email,
+      username: user.username
+    });
 
     res.status(201).json({
       user: {
@@ -226,25 +227,7 @@ router.post('/login', authRateLimit, async (req, res) => {
       });
     }
 
-    // Check for too many failed attempts
-    const failedAttempts = await getRecentFailedAttempts(
-      email.toLowerCase(),
-      ipAddress
-    );
-    if (failedAttempts >= MAX_FAILED_ATTEMPTS) {
-      await logLoginAttempt(
-        email.toLowerCase(),
-        ipAddress,
-        userAgent,
-        false,
-        'too_many_attempts'
-      );
-      return res.status(429).json({
-        error: 'too_many_attempts',
-        message: 'Too many failed login attempts. Please try again later.',
-        retry_after: 900, // 15 minutes
-      });
-    }
+    // Rate limiting is handled by authRateLimit middleware
 
     // Get user from database
     const userResult = await pool.query(
@@ -253,13 +236,6 @@ router.post('/login', authRateLimit, async (req, res) => {
     );
 
     if (userResult.rows.length === 0) {
-      await logLoginAttempt(
-        email.toLowerCase(),
-        ipAddress,
-        userAgent,
-        false,
-        'user_not_found'
-      );
       return res.status(401).json({
         error: 'invalid_credentials',
         message: 'Invalid email or password',
@@ -270,13 +246,6 @@ router.post('/login', authRateLimit, async (req, res) => {
 
     // Check if user is active
     if (!user.is_active) {
-      await logLoginAttempt(
-        email.toLowerCase(),
-        ipAddress,
-        userAgent,
-        false,
-        'account_deactivated'
-      );
       return res.status(401).json({
         error: 'account_deactivated',
         message: 'Account has been deactivated',
@@ -286,13 +255,6 @@ router.post('/login', authRateLimit, async (req, res) => {
     // Verify password
     const passwordValid = await bcrypt.compare(password, user.password_hash);
     if (!passwordValid) {
-      await logLoginAttempt(
-        email.toLowerCase(),
-        ipAddress,
-        userAgent,
-        false,
-        'invalid_password'
-      );
       return res.status(401).json({
         error: 'invalid_credentials',
         message: 'Invalid email or password',
@@ -325,7 +287,9 @@ router.post('/login', authRateLimit, async (req, res) => {
     ]);
 
     // Log successful login
-    await logLoginAttempt(email.toLowerCase(), ipAddress, userAgent, true);
+    await logSecurityAudit(user.id, 'login', ipAddress, userAgent, {
+      email: user.email
+    });
 
     res.json({
       user: {
