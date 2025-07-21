@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { loginUser, clearError } from '@/store/authSlice';
-import { AppDispatch, RootState } from '@/store/store';
+import type { AppDispatch, RootState } from '@/store/store';
 import { tokenManager } from '@/utils/tokenManager';
 import { useEffect } from 'react';
 
