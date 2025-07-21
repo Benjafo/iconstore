@@ -43,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           accessToken: result.accessToken,
         })
       );
-    } catch (_error) {
+    } catch {
       tokenManager.clearAccessToken();
       dispatch(clearAuth());
     }
