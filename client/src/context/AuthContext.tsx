@@ -1,12 +1,19 @@
-import { createContext, useContext, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useEffect, type ReactNode } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store/store';
+import type { RootState, AppDispatch } from '@/store/store';
 import { refreshToken, setCredentials, clearAuth } from '@/store/authSlice';
 import { tokenManager } from '@/utils/tokenManager';
 
+interface User {
+  id: string;
+  email: string;
+  username: string;
+  currency_balance: number;
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: any;
+  user: User | null;
   isLoading: boolean;
   checkAuthStatus: () => Promise<void>;
 }
@@ -36,7 +43,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           accessToken: result.accessToken,
         })
       );
-    } catch (error) {
+    } catch (_error) {
       tokenManager.clearAccessToken();
       dispatch(clearAuth());
     }
