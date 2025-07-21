@@ -70,7 +70,7 @@ COMMIT_COUNT=$(git rev-list --count origin/$BRANCH_NAME..$BRANCH_NAME 2>/dev/nul
 echo "📊 Commits to push: $COMMIT_COUNT"
 
 # Push with upstream tracking
-git push -u origin $BRANCH_NAME
+git push --force-with-lease -u origin $BRANCH_NAME
 
 if [ $? -eq 0 ]; then
     echo "✅ Successfully pushed branch: $BRANCH_NAME"
