@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface User {
@@ -35,8 +35,9 @@ export const loginUser = createAsyncThunk(
         withCredentials: true,
       });
       return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error || 'Login failed');
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { error?: string } } };
+      return rejectWithValue(axiosError.response?.data?.error || 'Login failed');
     }
   }
 );
@@ -52,9 +53,10 @@ export const registerUser = createAsyncThunk(
         withCredentials: true,
       });
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { error?: string } } };
       return rejectWithValue(
-        error.response?.data?.error || 'Registration failed'
+        axiosError.response?.data?.error || 'Registration failed'
       );
     }
   }
@@ -72,7 +74,7 @@ export const refreshToken = createAsyncThunk(
         }
       );
       return response.data;
-    } catch (error: any) {
+    } catch (_error: unknown) {
       return rejectWithValue('Session expired');
     }
   }
@@ -89,7 +91,7 @@ export const logoutUser = createAsyncThunk(
           withCredentials: true,
         }
       );
-    } catch (error: any) {
+    } catch (_error: unknown) {
       return rejectWithValue('Logout failed');
     }
   }
