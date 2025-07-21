@@ -7,7 +7,7 @@ interface RouteContext {
 }
 
 export const Route = createFileRoute('/_authenticated')({
-  beforeLoad: ({ context }: { context: RouteContext }) => {
+  beforeLoad: ({ context }) => {
     if (!context.auth.isAuthenticated) {
       throw redirect({
         to: '/auth',
