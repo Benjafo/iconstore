@@ -36,7 +36,7 @@ api.interceptors.response.use(
           store.dispatch(clearAuth());
           window.location.href = '/login';
         }
-      } catch (refreshError) {
+      } catch {
         store.dispatch(clearAuth());
         window.location.href = '/login';
       }

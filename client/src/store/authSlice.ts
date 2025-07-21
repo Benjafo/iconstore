@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  type PayloadAction,
+} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface User {
@@ -37,7 +41,9 @@ export const loginUser = createAsyncThunk(
       return response.data;
     } catch (error: unknown) {
       const axiosError = error as { response?: { data?: { error?: string } } };
-      return rejectWithValue(axiosError.response?.data?.error || 'Login failed');
+      return rejectWithValue(
+        axiosError.response?.data?.error || 'Login failed'
+      );
     }
   }
 );
