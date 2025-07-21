@@ -25,7 +25,7 @@ function Dashboard() {
           Logout
         </Button>
       </div>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Welcome back!</CardTitle>
