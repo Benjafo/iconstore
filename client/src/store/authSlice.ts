@@ -74,7 +74,7 @@ export const refreshToken = createAsyncThunk(
         }
       );
       return response.data;
-    } catch (_error: unknown) {
+    } catch {
       return rejectWithValue('Session expired');
     }
   }
@@ -91,7 +91,7 @@ export const logoutUser = createAsyncThunk(
           withCredentials: true,
         }
       );
-    } catch (_error: unknown) {
+    } catch {
       return rejectWithValue('Logout failed');
     }
   }
