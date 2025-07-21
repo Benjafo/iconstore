@@ -1,17 +1,11 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-
-interface RouteContext {
-  auth: {
-    isAuthenticated: boolean;
-  };
-}
 import { LoginForm } from '@/components/LoginForm';
 import { RegisterForm } from '@/components/RegisterForm';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/auth')({
   beforeLoad: ({ context }) => {
-    if (context.auth.isAuthenticated) {
+    if ((context as { auth?: { isAuthenticated: boolean } })?.auth?.isAuthenticated) {
       throw redirect({
         to: '/dashboard',
       });
