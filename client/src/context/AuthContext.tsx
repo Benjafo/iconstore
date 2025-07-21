@@ -30,10 +30,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const result = await dispatch(refreshToken()).unwrap();
       tokenManager.setAccessToken(result.accessToken);
-      dispatch(setCredentials({
-        user: result.user,
-        accessToken: result.accessToken,
-      }));
+      dispatch(
+        setCredentials({
+          user: result.user,
+          accessToken: result.accessToken,
+        })
+      );
     } catch (error) {
       tokenManager.clearAccessToken();
       dispatch(clearAuth());
@@ -51,11 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     checkAuthStatus,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 /**
