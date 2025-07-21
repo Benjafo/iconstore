@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { registerUser, clearError } from '@/store/authSlice';
-import { AppDispatch, RootState } from '@/store/store';
+import type { AppDispatch, RootState } from '@/store/store';
 import { tokenManager } from '@/utils/tokenManager';
 import { useEffect } from 'react';
 
@@ -87,7 +87,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   }, [error, dispatch]);
 
   const onSubmit = async (data: RegisterFormData) => {
-    const { confirmPassword, ...registerData } = data;
+    const { confirmPassword: _confirmPassword, ...registerData } = data;
     const result = await dispatch(registerUser(registerData));
     if (registerUser.fulfilled.match(result)) {
       tokenManager.setAccessToken(result.payload.accessToken);
