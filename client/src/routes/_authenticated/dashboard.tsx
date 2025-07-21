@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store/store';
+import type { RootState, AppDispatch } from '@/store/store';
 import { logoutUser } from '@/store/authSlice';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
