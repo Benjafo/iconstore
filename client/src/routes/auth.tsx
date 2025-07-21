@@ -10,7 +10,7 @@ import { RegisterForm } from '@/components/RegisterForm';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/auth')({
-  beforeLoad: ({ context }: { context: RouteContext }) => {
+  beforeLoad: ({ context }) => {
     if (context.auth.isAuthenticated) {
       throw redirect({
         to: '/dashboard',
