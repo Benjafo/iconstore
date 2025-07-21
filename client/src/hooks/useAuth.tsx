@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '@/store/store';
+import type { RootState, AppDispatch } from '@/store/store';
 import { refreshToken, logoutUser, clearAuth } from '@/store/authSlice';
 import { tokenManager } from '@/utils/tokenManager';
 import { useEffect } from 'react';
