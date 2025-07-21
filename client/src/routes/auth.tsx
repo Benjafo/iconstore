@@ -5,7 +5,10 @@ import { useState } from 'react';
 
 export const Route = createFileRoute('/auth')({
   beforeLoad: ({ context }) => {
-    if ((context as { auth?: { isAuthenticated: boolean } })?.auth?.isAuthenticated) {
+    if (
+      (context as { auth?: { isAuthenticated: boolean } })?.auth
+        ?.isAuthenticated
+    ) {
       throw redirect({
         to: '/dashboard',
       });
