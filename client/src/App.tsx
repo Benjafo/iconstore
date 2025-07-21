@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { store } from '@/store/store';
 import { AuthProvider } from '@/context/AuthContext';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
+import type { RootState } from '@/store/store';
 import { routeTree } from './routeTree.gen';
 import './App.css';
 
