@@ -1,13 +1,11 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
 import { LoginForm } from '@/components/LoginForm';
 import { RegisterForm } from '@/components/RegisterForm';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/auth')({
-  beforeLoad: ({ context }) => {
-    if (context.auth.isAuthenticated) {
+  beforeLoad: ({ context }: { context: any }) => {
+    if (context.auth?.isAuthenticated) {
       throw redirect({
         to: '/dashboard',
       });
