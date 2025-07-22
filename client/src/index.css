@@ -212,6 +212,20 @@
     @apply text-lg font-semibold text-foreground;
   }
   
+  /* Enhanced readability */
+  .text-enhanced {
+    @apply leading-relaxed tracking-wide;
+  }
+  
+  .text-stat {
+    @apply text-2xl font-bold text-primary tabular-nums;
+  }
+  
+  /* Card content improvements */
+  .card-content-text {
+    @apply text-sm text-muted-foreground leading-relaxed;
+  }
+  
   /* Button enhancements */
   .btn-primary-enhanced {
     @apply bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200;
