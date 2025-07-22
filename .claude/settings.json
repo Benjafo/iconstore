@@ -1,18 +1,6 @@
 {
   "includeCoAuthoredBy": false,
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash -c 'cd \"$PWD\" && if [ -f package.json ]; then pnpm run lint:fix 2>/dev/null || npm run lint:fix 2>/dev/null || echo \"No lint script found\"; elif [ -f Cargo.toml ]; then cargo fmt 2>/dev/null || echo \"Cargo fmt not available\"; elif [ -f pyproject.toml ] || [ -f requirements.txt ]; then black . 2>/dev/null || ruff format . 2>/dev/null || echo \"No Python formatter found\"; else echo \"No known formatter for this project\"; fi'",
-            "timeout": 30
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit|MultiEdit",
