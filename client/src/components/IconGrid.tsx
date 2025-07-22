@@ -45,17 +45,17 @@ export interface IconGridProps extends HTMLAttributes<HTMLDivElement> {
 
 /**
  * IconGrid - Responsive grid component for displaying icons and icon packs
- * 
+ *
  * Provides a flexible, responsive grid layout with customizable columns,
  * gap sizes, and item rendering. Supports loading states and empty states.
- * 
+ *
  * @example
  * ```tsx
  * const items = [
  *   { id: '1', name: 'Home Icons', preview: '/preview1.svg' },
  *   { id: '2', name: 'Social Media', preview: '/preview2.svg' }
  * ];
- * 
+ *
  * <IconGrid
  *   items={items}
  *   columns={{ sm: 2, md: 4, lg: 6 }}
@@ -106,10 +106,7 @@ export function IconGrid({
     return (
       <div className={gridClasses} {...props}>
         {Array.from({ length: loadingCount }).map((_, index) => (
-          <div
-            key={`loading-${index}`}
-            className="animate-pulse"
-          >
+          <div key={`loading-${index}`} className="animate-pulse">
             <div className="bg-gray-200 dark:bg-gray-700 rounded-lg aspect-square w-full" />
             <div className="mt-2 space-y-1">
               <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4" />
@@ -158,9 +155,7 @@ export function IconGrid({
             loading="lazy"
           />
         ) : (
-          <div className="text-4xl text-gray-400 dark:text-gray-500">
-            📦
-          </div>
+          <div className="text-4xl text-gray-400 dark:text-gray-500">📦</div>
         )}
       </div>
       <div className="space-y-1">
