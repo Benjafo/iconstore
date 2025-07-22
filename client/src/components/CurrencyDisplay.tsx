@@ -44,18 +44,18 @@ const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
 /**
  * CurrencyDisplay - Formats and displays monetary amounts with proper currency formatting.
  * Supports multiple currencies, locales, and display formats for an icon pack store context.
- * 
+ *
  * @example
  * ```tsx
  * // Basic usage
  * <CurrencyDisplay amount={29.99} />
- * 
+ *
  * // With different currency
  * <CurrencyDisplay amount={19.99} currency="EUR" />
- * 
+ *
  * // Compact format for large amounts
  * <CurrencyDisplay amount={1299.99} format="compact" />
- * 
+ *
  * // Symbol only for tight spaces
  * <CurrencyDisplay amount={9.99} symbolOnly />
  * ```
@@ -110,7 +110,7 @@ export const CurrencyDisplay: React.FC<CurrencyDisplayProps> = ({
     const baseClass = 'currency-display';
     const formatClass = `currency-display--${format}`;
     const currencyClass = `currency-display--${currency.toLowerCase()}`;
-    
+
     let amountClass = '';
     if (amount === 0) {
       amountClass = 'currency-display--free';
@@ -127,7 +127,7 @@ export const CurrencyDisplay: React.FC<CurrencyDisplayProps> = ({
   };
 
   return (
-    <span 
+    <span
       className={getCssClasses()}
       title={symbolOnly ? formatAmount() : undefined}
       aria-label={`Price: ${formatAmount()}`}

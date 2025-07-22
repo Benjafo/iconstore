@@ -1,0 +1,78 @@
+/**
+ * PageContainer - Consistent page wrapper styles
+ */
+.page-container {
+  width: 100%;
+}
+
+.page-container--centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Max width variants */
+.page-container--max-width-sm {
+  max-width: 640px;
+}
+
+.page-container--max-width-md {
+  max-width: 768px;
+}
+
+.page-container--max-width-lg {
+  max-width: 1024px;
+}
+
+.page-container--max-width-xl {
+  max-width: 1280px;
+}
+
+.page-container--max-width-full {
+  max-width: none;
+}
+
+/* Padding variants */
+.page-container--padding-none {
+  padding: 0;
+}
+
+.page-container--padding-sm {
+  padding: 1rem;
+}
+
+.page-container--padding-md {
+  padding: 2rem;
+}
+
+.page-container--padding-lg {
+  padding: 3rem;
+}
+
+/* Responsive padding adjustments */
+@media (max-width: 768px) {
+  .page-container--padding-sm {
+    padding: 0.75rem;
+  }
+
+  .page-container--padding-md {
+    padding: 1.5rem;
+  }
+
+  .page-container--padding-lg {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container--padding-sm {
+    padding: 0.5rem;
+  }
+
+  .page-container--padding-md {
+    padding: 1rem;
+  }
+
+  .page-container--padding-lg {
+    padding: 1.5rem;
+  }
+}
