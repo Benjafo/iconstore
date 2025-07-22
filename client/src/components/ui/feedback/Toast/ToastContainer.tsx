@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import { Toast, ToastData, ToastPosition } from './Toast';
+import type { Toast, ToastData, ToastPosition } from './Toast';
 import './Toast.css';
 
 /**
