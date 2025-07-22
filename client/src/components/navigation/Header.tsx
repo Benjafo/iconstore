@@ -68,10 +68,10 @@ export interface HeaderProps {
 
 /**
  * Header component for icon pack store application
- * 
+ *
  * Provides top navigation with logo, search functionality, user menu,
  * and additional navigation items. Designed for an icon pack store context.
- * 
+ *
  * @param props - Header component props
  * @returns JSX element representing the header
  */
@@ -100,7 +100,10 @@ export const Header: React.FC<HeaderProps> = ({
   // Close user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
     };
@@ -145,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Navigation Items */}
         {navigationItems.length > 0 && (
           <nav className="header-nav">
-            {navigationItems.map((item) => (
+            {navigationItems.map(item => (
               <a
                 key={item.id}
                 href={item.href}
@@ -164,7 +167,7 @@ export const Header: React.FC<HeaderProps> = ({
             <input
               type="text"
               value={localSearchQuery}
-              onChange={(e) => handleSearchChange(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
               className="search-input"
               aria-label="Search icons"
@@ -186,7 +189,11 @@ export const Header: React.FC<HeaderProps> = ({
                 aria-haspopup="menu"
               >
                 {user.avatar ? (
-                  <img src={user.avatar} alt={user.name} className="user-avatar" />
+                  <img
+                    src={user.avatar}
+                    alt={user.name}
+                    className="user-avatar"
+                  />
                 ) : (
                   <div className="user-avatar user-avatar-initials">
                     {user.initials}
@@ -202,14 +209,18 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="user-menu-name">{user.name}</div>
                     <div className="user-menu-email">{user.email}</div>
                   </div>
-                  {userMenuItems.map((item) => (
+                  {userMenuItems.map(item => (
                     <div key={item.id}>
                       <button
                         className="user-menu-item"
                         onClick={() => handleUserMenuItemClick(item)}
                         role="menuitem"
                       >
-                        {item.icon && <span className="user-menu-item-icon">{item.icon}</span>}
+                        {item.icon && (
+                          <span className="user-menu-item-icon">
+                            {item.icon}
+                          </span>
+                        )}
                         {item.label}
                       </button>
                       {item.divider && <div className="user-menu-divider" />}
@@ -397,7 +408,7 @@ export const Header: React.FC<HeaderProps> = ({
           transition: transform 0.2s ease;
         }
 
-        .user-menu-trigger[aria-expanded="true"] .user-menu-arrow {
+        .user-menu-trigger[aria-expanded='true'] .user-menu-arrow {
           transform: rotate(180deg);
         }
 
