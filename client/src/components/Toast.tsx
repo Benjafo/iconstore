@@ -10,7 +10,11 @@ export type ToastVariant = 'success' | 'error' | 'warning' | 'info';
 /**
  * Toast position options
  */
-export type ToastPosition = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+export type ToastPosition =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left';
 
 /**
  * Action button configuration for toasts
@@ -118,7 +122,7 @@ export const Toast: React.FC<ToastProps> = ({
   toast,
   onRemove,
   position = 'top-right',
-  index = 0
+  index = 0,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
@@ -143,14 +147,14 @@ export const Toast: React.FC<ToastProps> = ({
 
     const updateProgress = () => {
       if (isPaused) return;
-      
+
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, duration - elapsed);
       const progressPercent = (remaining / duration) * 100;
-      
+
       setProgress(progressPercent);
       setRemainingTime(remaining);
-      
+
       if (remaining <= 0) {
         handleDismiss();
       }
@@ -191,7 +195,12 @@ export const Toast: React.FC<ToastProps> = ({
     switch (toast.variant) {
       case 'success':
         return (
-          <svg className="toast__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <svg
+            className="toast__icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
             <path
               fillRule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -201,7 +210,12 @@ export const Toast: React.FC<ToastProps> = ({
         );
       case 'error':
         return (
-          <svg className="toast__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <svg
+            className="toast__icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
             <path
               fillRule="evenodd"
               d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -211,7 +225,12 @@ export const Toast: React.FC<ToastProps> = ({
         );
       case 'warning':
         return (
-          <svg className="toast__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <svg
+            className="toast__icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
             <path
               fillRule="evenodd"
               d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
@@ -221,7 +240,12 @@ export const Toast: React.FC<ToastProps> = ({
         );
       case 'info':
         return (
-          <svg className="toast__icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <svg
+            className="toast__icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
             <path
               fillRule="evenodd"
               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -241,7 +265,7 @@ export const Toast: React.FC<ToastProps> = ({
     const classes = [
       'toast',
       `toast--${toast.variant}`,
-      `toast--${position.replace('-', '_')}`
+      `toast--${position.replace('-', '_')}`,
     ];
 
     if (isVisible && !isExiting) {
@@ -266,11 +290,11 @@ export const Toast: React.FC<ToastProps> = ({
     if (index === 0) return {};
 
     const offset = index * 4;
-    const scale = 1 - (index * 0.05);
+    const scale = 1 - index * 0.05;
 
     return {
       transform: `translateY(${offset}px) scale(${scale})`,
-      zIndex: 1000 - index
+      zIndex: 1000 - index,
     };
   };
 
@@ -300,21 +324,13 @@ export const Toast: React.FC<ToastProps> = ({
       {/* Toast content */}
       <div className="toast__content">
         {/* Icon */}
-        <div className="toast__icon-container">
-          {getDefaultIcon()}
-        </div>
+        <div className="toast__icon-container">{getDefaultIcon()}</div>
 
         {/* Main content */}
         <div className="toast__main">
-          {toast.title && (
-            <h4 className="toast__title">
-              {toast.title}
-            </h4>
-          )}
-          
-          <div className="toast__message">
-            {toast.message}
-          </div>
+          {toast.title && <h4 className="toast__title">{toast.title}</h4>}
+
+          <div className="toast__message">{toast.message}</div>
 
           {/* Actions */}
           {toast.actions && toast.actions.length > 0 && (
@@ -365,7 +381,9 @@ export const Toast: React.FC<ToastProps> = ({
         {toast.variant === 'success' ? 'Success: ' : ''}
         {toast.title && `${toast.title}. `}
         {toast.message}
-        {toast.duration && toast.duration > 0 && `, will dismiss in ${Math.ceil(remainingTime / 1000)} seconds`}
+        {toast.duration &&
+          toast.duration > 0 &&
+          `, will dismiss in ${Math.ceil(remainingTime / 1000)} seconds`}
       </div>
     </div>
   );

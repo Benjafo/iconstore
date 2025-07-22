@@ -155,7 +155,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const modalRef = useRef<HTMLDivElement>(null);
     const lastActiveElementRef = useRef<HTMLElement | null>(null);
     const focusableElementsRef = useRef<HTMLElement[]>([]);
-    
+
     // Generate unique IDs for accessibility
     const titleId = `modal-title-${Math.random().toString(36).substr(2, 9)}`;
     const bodyId = `modal-body-${Math.random().toString(36).substr(2, 9)}`;
@@ -163,7 +163,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // Get focusable elements within modal
     const getFocusableElements = useCallback((): HTMLElement[] => {
       if (!modalRef.current) return [];
-      
+
       const focusableSelectors = [
         'button:not([disabled])',
         'input:not([disabled])',
@@ -178,31 +178,34 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     }, []);
 
     // Focus management
-    const trapFocus = useCallback((event: KeyboardEvent) => {
-      const focusableElements = getFocusableElements();
-      focusableElementsRef.current = focusableElements;
-      
-      if (focusableElements.length === 0) return;
+    const trapFocus = useCallback(
+      (event: KeyboardEvent) => {
+        const focusableElements = getFocusableElements();
+        focusableElementsRef.current = focusableElements;
 
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
+        if (focusableElements.length === 0) return;
 
-      if (event.key === 'Tab') {
-        if (event.shiftKey) {
-          // Shift + Tab
-          if (document.activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-          }
-        } else {
-          // Tab
-          if (document.activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.key === 'Tab') {
+          if (event.shiftKey) {
+            // Shift + Tab
+            if (document.activeElement === firstElement) {
+              event.preventDefault();
+              lastElement.focus();
+            }
+          } else {
+            // Tab
+            if (document.activeElement === lastElement) {
+              event.preventDefault();
+              firstElement.focus();
+            }
           }
         }
-      }
-    }, [getFocusableElements]);
+      },
+      [getFocusableElements]
+    );
 
     // Handle escape key
     const handleKeyDown = useCallback(
@@ -235,7 +238,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       if (isOpen) {
         const originalStyle = window.getComputedStyle(document.body).overflow;
         document.body.style.overflow = 'hidden';
-        
+
         return () => {
           document.body.style.overflow = originalStyle;
         };
@@ -247,11 +250,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       if (isOpen) {
         // Store currently focused element
         lastActiveElementRef.current = document.activeElement as HTMLElement;
-        
+
         // Wait for modal to be rendered
         requestAnimationFrame(() => {
           const focusableElements = getFocusableElements();
-          
+
           if (initialFocus?.current) {
             initialFocus.current.focus();
           } else if (focusableElements.length > 0) {
@@ -400,18 +403,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           </div>
 
           {/* Footer */}
-          {footer && (
-            <div className={getFooterClasses()}>
-              {footer}
-            </div>
-          )}
+          {footer && <div className={getFooterClasses()}>{footer}</div>}
         </div>
       </div>
     );
 
     // Use portal to render modal in container (default: document.body)
     const portalContainer = container || document.body;
-    
+
     return createPortal(modalContent, portalContainer);
   }
 );

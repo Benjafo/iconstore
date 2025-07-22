@@ -1,4 +1,10 @@
-import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import './SearchBox.css';
 
 /**
@@ -151,14 +157,14 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
     const [focused, setFocused] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [showDropdown, setShowDropdown] = useState(false);
-    
+
     const inputRef = useRef<HTMLInputElement>(null);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const debounceRef = useRef<NodeJS.Timeout>();
-    
+
     // Forward ref to either provided ref or internal ref
     const actualRef = (ref as React.RefObject<HTMLInputElement>) || inputRef;
-    
+
     // Generate unique IDs
     const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
     const dropdownId = `${searchId}-dropdown`;
@@ -167,44 +173,53 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
     // Get filtered suggestions and recent searches
     const filteredSuggestions = suggestions.slice(0, maxSuggestions);
     const filteredRecents = recentSearches.slice(0, maxRecentSearches);
-    
+
     // Determine what to show in dropdown
     const hasQuery = value.trim().length > 0;
-    const showSuggestionsInDropdown = hasQuery && filteredSuggestions.length > 0;
+    const showSuggestionsInDropdown =
+      hasQuery && filteredSuggestions.length > 0;
     const showRecentsInDropdown = !hasQuery && filteredRecents.length > 0;
-    const shouldShowDropdown = showSuggestions && focused && (showSuggestionsInDropdown || showRecentsInDropdown);
-    
+    const shouldShowDropdown =
+      showSuggestions &&
+      focused &&
+      (showSuggestionsInDropdown || showRecentsInDropdown);
+
     // All selectable items (suggestions or recent searches)
-    const selectableItems = hasQuery ? filteredSuggestions : filteredRecents.map(text => ({ id: text, text }));
+    const selectableItems = hasQuery
+      ? filteredSuggestions
+      : filteredRecents.map(text => ({ id: text, text }));
 
     /**
      * Handle debounced search requests
      */
-    const debouncedRequestSuggestions = useCallback((query: string) => {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
-      }
-      
-      if (onRequestSuggestions && query.trim()) {
-        debounceRef.current = setTimeout(() => {
-          onRequestSuggestions(query);
-        }, debounceMs);
-      }
-    }, [onRequestSuggestions, debounceMs]);
+    const debouncedRequestSuggestions = useCallback(
+      (query: string) => {
+        if (debounceRef.current) {
+          clearTimeout(debounceRef.current);
+        }
+
+        if (onRequestSuggestions && query.trim()) {
+          debounceRef.current = setTimeout(() => {
+            onRequestSuggestions(query);
+          }, debounceMs);
+        }
+      },
+      [onRequestSuggestions, debounceMs]
+    );
 
     /**
      * Handle input change
      */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = event.target.value;
-      
+
       if (onChange) {
         onChange(newValue);
       }
-      
+
       // Reset selection when value changes
       setSelectedIndex(-1);
-      
+
       // Request suggestions with debounce
       debouncedRequestSuggestions(newValue);
     };
@@ -223,9 +238,12 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
     /**
      * Handle suggestion or recent search selection
      */
-    const handleItemSelect = (item: SearchSuggestion | { id: string; text: string }, index: number) => {
+    const handleItemSelect = (
+      item: SearchSuggestion | { id: string; text: string },
+      index: number
+    ) => {
       const isRecentSearch = !hasQuery;
-      
+
       if (isRecentSearch) {
         if (onRecentSearchSelect) {
           onRecentSearchSelect(item.text);
@@ -235,7 +253,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
           onSuggestionSelect(item as SearchSuggestion);
         }
       }
-      
+
       // Always trigger search on selection
       handleSearch(item.text);
     };
@@ -259,18 +277,18 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
       switch (event.key) {
         case 'ArrowDown':
           event.preventDefault();
-          setSelectedIndex(prev => 
+          setSelectedIndex(prev =>
             prev < selectableItems.length - 1 ? prev + 1 : -1
           );
           break;
-          
+
         case 'ArrowUp':
           event.preventDefault();
-          setSelectedIndex(prev => 
+          setSelectedIndex(prev =>
             prev > -1 ? prev - 1 : selectableItems.length - 1
           );
           break;
-          
+
         case 'Enter':
           event.preventDefault();
           if (selectedIndex >= 0 && selectedIndex < selectableItems.length) {
@@ -279,14 +297,14 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
             handleSearch(value);
           }
           break;
-          
+
         case 'Escape':
           event.preventDefault();
           setShowDropdown(false);
           setSelectedIndex(-1);
           actualRef.current?.blur();
           break;
-          
+
         default:
           break;
       }
@@ -298,7 +316,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
       setFocused(true);
       setShowDropdown(true);
-      
+
       if (onFocus) {
         onFocus(event);
       }
@@ -314,7 +332,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
         setShowDropdown(false);
         setSelectedIndex(-1);
       }, 150);
-      
+
       if (onBlur) {
         onBlur(event);
       }
@@ -327,11 +345,11 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
       if (onChange) {
         onChange('');
       }
-      
+
       if (onClear) {
         onClear();
       }
-      
+
       setSelectedIndex(-1);
       actualRef.current?.focus();
     };
@@ -339,7 +357,10 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
     /**
      * Handle dropdown item click
      */
-    const handleDropdownItemClick = (item: SearchSuggestion | { id: string; text: string }, index: number) => {
+    const handleDropdownItemClick = (
+      item: SearchSuggestion | { id: string; text: string },
+      index: number
+    ) => {
       handleItemSelect(item, index);
     };
 
@@ -366,51 +387,52 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
 
     const getSearchBoxClasses = (): string => {
       const classes = ['search-box', `search-box--${size}`];
-      
+
       if (focused) {
         classes.push('search-box--focused');
       }
-      
+
       if (disabled || loading) {
         classes.push('search-box--disabled');
       }
-      
+
       if (loading) {
         classes.push('search-box--loading');
       }
-      
+
       if (className) {
         classes.push(className);
       }
-      
+
       return classes.join(' ');
     };
 
     const getInputClasses = (): string => {
       const classes = ['search-box__input', `search-box__input--${size}`];
-      
+
       if (focused) {
         classes.push('search-box__input--focused');
       }
-      
+
       return classes.join(' ');
     };
 
     const getDropdownClasses = (): string => {
       const classes = ['search-box__dropdown', `search-box__dropdown--${size}`];
-      
+
       if (showDropdown) {
         classes.push('search-box__dropdown--visible');
       }
-      
+
       if (dropdownClassName) {
         classes.push(dropdownClassName);
       }
-      
+
       return classes.join(' ');
     };
 
-    const showClearButton = clearable && value && value.length > 0 && !disabled && !loading;
+    const showClearButton =
+      clearable && value && value.length > 0 && !disabled && !loading;
 
     const defaultSearchIcon = (
       <svg viewBox="0 0 20 20" fill="currentColor">
@@ -450,7 +472,7 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
             aria-haspopup="listbox"
             aria-owns={dropdownId}
             aria-activedescendant={
-              selectedIndex >= 0 
+              selectedIndex >= 0
                 ? `${suggestionIdPrefix}-${selectedIndex}`
                 : undefined
             }
@@ -510,21 +532,28 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
             {showSuggestionsInDropdown && (
               <>
                 <div className="search-box__dropdown-header">
-                  <span className="search-box__dropdown-title">Suggestions</span>
+                  <span className="search-box__dropdown-title">
+                    Suggestions
+                  </span>
                 </div>
                 {filteredSuggestions.map((suggestion, index) => (
                   <div
                     key={suggestion.id}
                     id={`${suggestionIdPrefix}-${index}`}
                     className={`search-box__dropdown-item ${
-                      selectedIndex === index ? 'search-box__dropdown-item--selected' : ''
+                      selectedIndex === index
+                        ? 'search-box__dropdown-item--selected'
+                        : ''
                     }`}
                     role="option"
                     aria-selected={selectedIndex === index}
                     onClick={() => handleDropdownItemClick(suggestion, index)}
                   >
                     {suggestion.icon && (
-                      <div className="search-box__dropdown-item-icon" aria-hidden="true">
+                      <div
+                        className="search-box__dropdown-item-icon"
+                        aria-hidden="true"
+                      >
                         {suggestion.icon}
                       </div>
                     )}
@@ -546,20 +575,32 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
             {showRecentsInDropdown && (
               <>
                 <div className="search-box__dropdown-header">
-                  <span className="search-box__dropdown-title">Recent searches</span>
+                  <span className="search-box__dropdown-title">
+                    Recent searches
+                  </span>
                 </div>
                 {filteredRecents.map((recentSearch, index) => (
                   <div
                     key={recentSearch}
                     id={`${suggestionIdPrefix}-${index}`}
                     className={`search-box__dropdown-item ${
-                      selectedIndex === index ? 'search-box__dropdown-item--selected' : ''
+                      selectedIndex === index
+                        ? 'search-box__dropdown-item--selected'
+                        : ''
                     }`}
                     role="option"
                     aria-selected={selectedIndex === index}
-                    onClick={() => handleDropdownItemClick({ id: recentSearch, text: recentSearch }, index)}
+                    onClick={() =>
+                      handleDropdownItemClick(
+                        { id: recentSearch, text: recentSearch },
+                        index
+                      )
+                    }
                   >
-                    <div className="search-box__dropdown-item-icon" aria-hidden="true">
+                    <div
+                      className="search-box__dropdown-item-icon"
+                      aria-hidden="true"
+                    >
                       <svg viewBox="0 0 20 20" fill="currentColor">
                         <path
                           fillRule="evenodd"
@@ -582,7 +623,9 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(
 
             {shouldShowDropdown && selectableItems.length === 0 && (
               <div className="search-box__dropdown-empty">
-                <span>No {hasQuery ? 'suggestions' : 'recent searches'} found</span>
+                <span>
+                  No {hasQuery ? 'suggestions' : 'recent searches'} found
+                </span>
               </div>
             )}
           </div>
