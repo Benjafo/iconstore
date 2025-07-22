@@ -19,7 +19,8 @@ export type InputState = 'default' | 'success' | 'error' | 'warning';
 /**
  * Props for the Input component
  */
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   /** Visual variant of the input */
   variant?: InputVariant;
   /** Size of the input */
@@ -57,8 +58,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * @example
  * ```tsx
  * // Basic input
- * <Input 
- *   label="Search icon packs" 
+ * <Input
+ *   label="Search icon packs"
  *   placeholder="Enter keywords..."
  * />
  *
@@ -86,243 +87,240 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * />
  * ```
  */
-export const Input = forwardRef<HTMLInputElement, InputProps>(({
-  variant = 'default',
-  size = 'md',
-  state: propState = 'default',
-  label,
-  helperText,
-  error,
-  startIcon,
-  endIcon,
-  loading = false,
-  clearable = false,
-  onClear,
-  wrapperClassName = '',
-  labelClassName = '',
-  helperClassName = '',
-  className = '',
-  value,
-  onChange,
-  disabled,
-  id,
-  'aria-describedby': ariaDescribedBy,
-  ...props
-}, ref) => {
-  const [focused, setFocused] = useState(false);
-  
-  // Derive actual state (error prop overrides state prop)
-  const actualState = error ? 'error' : propState;
-  
-  // Generate unique IDs if not provided
-  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
-  const helperId = `${inputId}-helper`;
-  const errorId = `${inputId}-error`;
-  
-  // Build aria-describedby
-  const describedBy = [
-    ariaDescribedBy,
-    (helperText || error) && helperId,
-    error && errorId,
-  ].filter(Boolean).join(' ') || undefined;
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      variant = 'default',
+      size = 'md',
+      state: propState = 'default',
+      label,
+      helperText,
+      error,
+      startIcon,
+      endIcon,
+      loading = false,
+      clearable = false,
+      onClear,
+      wrapperClassName = '',
+      labelClassName = '',
+      helperClassName = '',
+      className = '',
+      value,
+      onChange,
+      disabled,
+      id,
+      'aria-describedby': ariaDescribedBy,
+      ...props
+    },
+    ref
+  ) => {
+    const [focused, setFocused] = useState(false);
 
-  const getWrapperClasses = (): string => {
-    const classes = [
-      'input-wrapper',
-      `input-wrapper--${size}`,
-    ];
+    // Derive actual state (error prop overrides state prop)
+    const actualState = error ? 'error' : propState;
 
-    if (wrapperClassName) {
-      classes.push(wrapperClassName);
-    }
+    // Generate unique IDs if not provided
+    const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+    const helperId = `${inputId}-helper`;
+    const errorId = `${inputId}-error`;
 
-    return classes.join(' ');
-  };
+    // Build aria-describedby
+    const describedBy =
+      [ariaDescribedBy, (helperText || error) && helperId, error && errorId]
+        .filter(Boolean)
+        .join(' ') || undefined;
 
-  const getInputClasses = (): string => {
-    const classes = [
-      'input',
-      `input--${variant}`,
-      `input--${size}`,
-      `input--${actualState}`,
-    ];
+    const getWrapperClasses = (): string => {
+      const classes = ['input-wrapper', `input-wrapper--${size}`];
 
-    if (focused) {
-      classes.push('input--focused');
-    }
+      if (wrapperClassName) {
+        classes.push(wrapperClassName);
+      }
 
-    if (startIcon) {
-      classes.push('input--with-start-icon');
-    }
+      return classes.join(' ');
+    };
 
-    if (endIcon || loading || (clearable && value)) {
-      classes.push('input--with-end-icon');
-    }
+    const getInputClasses = (): string => {
+      const classes = [
+        'input',
+        `input--${variant}`,
+        `input--${size}`,
+        `input--${actualState}`,
+      ];
 
-    if (disabled || loading) {
-      classes.push('input--disabled');
-    }
+      if (focused) {
+        classes.push('input--focused');
+      }
 
-    if (className) {
-      classes.push(className);
-    }
+      if (startIcon) {
+        classes.push('input--with-start-icon');
+      }
 
-    return classes.join(' ');
-  };
+      if (endIcon || loading || (clearable && value)) {
+        classes.push('input--with-end-icon');
+      }
 
-  const getLabelClasses = (): string => {
-    const classes = [
-      'input__label',
-      `input__label--${size}`,
-    ];
+      if (disabled || loading) {
+        classes.push('input--disabled');
+      }
 
-    if (actualState !== 'default') {
-      classes.push(`input__label--${actualState}`);
-    }
+      if (className) {
+        classes.push(className);
+      }
 
-    if (disabled || loading) {
-      classes.push('input__label--disabled');
-    }
+      return classes.join(' ');
+    };
 
-    if (labelClassName) {
-      classes.push(labelClassName);
-    }
+    const getLabelClasses = (): string => {
+      const classes = ['input__label', `input__label--${size}`];
 
-    return classes.join(' ');
-  };
+      if (actualState !== 'default') {
+        classes.push(`input__label--${actualState}`);
+      }
 
-  const getHelperClasses = (): string => {
-    const classes = [
-      'input__helper',
-      `input__helper--${size}`,
-    ];
+      if (disabled || loading) {
+        classes.push('input__label--disabled');
+      }
 
-    if (actualState !== 'default') {
-      classes.push(`input__helper--${actualState}`);
-    }
+      if (labelClassName) {
+        classes.push(labelClassName);
+      }
 
-    if (helperClassName) {
-      classes.push(helperClassName);
-    }
+      return classes.join(' ');
+    };
 
-    return classes.join(' ');
-  };
+    const getHelperClasses = (): string => {
+      const classes = ['input__helper', `input__helper--${size}`];
 
-  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-    setFocused(true);
-    if (props.onFocus) {
-      props.onFocus(event);
-    }
-  };
+      if (actualState !== 'default') {
+        classes.push(`input__helper--${actualState}`);
+      }
 
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    setFocused(false);
-    if (props.onBlur) {
-      props.onBlur(event);
-    }
-  };
+      if (helperClassName) {
+        classes.push(helperClassName);
+      }
 
-  const handleClear = () => {
-    if (onClear) {
-      onClear();
-    } else if (onChange) {
-      // Create synthetic event for onChange
-      const syntheticEvent = {
-        target: { value: '' },
-        currentTarget: { value: '' },
-      } as React.ChangeEvent<HTMLInputElement>;
-      onChange(syntheticEvent);
-    }
-  };
+      return classes.join(' ');
+    };
 
-  const showClearButton = clearable && value && String(value).length > 0 && !disabled && !loading;
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+      setFocused(true);
+      if (props.onFocus) {
+        props.onFocus(event);
+      }
+    };
 
-  return (
-    <div className={getWrapperClasses()}>
-      {label && (
-        <label 
-          htmlFor={inputId}
-          className={getLabelClasses()}
-        >
-          {label}
-        </label>
-      )}
-      
-      <div className="input__container">
-        {startIcon && (
-          <div className="input__start-icon" aria-hidden="true">
-            {startIcon}
-          </div>
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+      setFocused(false);
+      if (props.onBlur) {
+        props.onBlur(event);
+      }
+    };
+
+    const handleClear = () => {
+      if (onClear) {
+        onClear();
+      } else if (onChange) {
+        // Create synthetic event for onChange
+        const syntheticEvent = {
+          target: { value: '' },
+          currentTarget: { value: '' },
+        } as React.ChangeEvent<HTMLInputElement>;
+        onChange(syntheticEvent);
+      }
+    };
+
+    const showClearButton =
+      clearable && value && String(value).length > 0 && !disabled && !loading;
+
+    return (
+      <div className={getWrapperClasses()}>
+        {label && (
+          <label htmlFor={inputId} className={getLabelClasses()}>
+            {label}
+          </label>
         )}
 
-        <input
-          {...props}
-          ref={ref}
-          id={inputId}
-          className={getInputClasses()}
-          value={value}
-          onChange={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          disabled={disabled || loading}
-          aria-invalid={actualState === 'error'}
-          aria-describedby={describedBy}
-        />
-
-        <div className="input__end-icons">
-          {loading && (
-            <div className="input__loading" aria-hidden="true">
-              <svg className="input__spinner" viewBox="0 0 20 20" fill="currentColor">
-                <path 
-                  fillRule="evenodd" 
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" 
-                  clipRule="evenodd" 
-                  opacity="0.2"
-                />
-                <path d="M10 2a8 8 0 00-8 8h2a6 6 0 016-6V2z" />
-              </svg>
+        <div className="input__container">
+          {startIcon && (
+            <div className="input__start-icon" aria-hidden="true">
+              {startIcon}
             </div>
           )}
 
-          {showClearButton && (
-            <button
-              type="button"
-              className="input__clear"
-              onClick={handleClear}
-              aria-label="Clear input"
-              tabIndex={-1}
-            >
-              <svg viewBox="0 0 20 20" fill="currentColor">
-                <path 
-                  fillRule="evenodd" 
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                  clipRule="evenodd" 
-                />
-              </svg>
-            </button>
-          )}
+          <input
+            {...props}
+            ref={ref}
+            id={inputId}
+            className={getInputClasses()}
+            value={value}
+            onChange={onChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            disabled={disabled || loading}
+            aria-invalid={actualState === 'error'}
+            aria-describedby={describedBy}
+          />
 
-          {endIcon && !loading && (
-            <div className="input__end-icon" aria-hidden="true">
-              {endIcon}
-            </div>
-          )}
+          <div className="input__end-icons">
+            {loading && (
+              <div className="input__loading" aria-hidden="true">
+                <svg
+                  className="input__spinner"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z"
+                    clipRule="evenodd"
+                    opacity="0.2"
+                  />
+                  <path d="M10 2a8 8 0 00-8 8h2a6 6 0 016-6V2z" />
+                </svg>
+              </div>
+            )}
+
+            {showClearButton && (
+              <button
+                type="button"
+                className="input__clear"
+                onClick={handleClear}
+                aria-label="Clear input"
+                tabIndex={-1}
+              >
+                <svg viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            )}
+
+            {endIcon && !loading && (
+              <div className="input__end-icon" aria-hidden="true">
+                {endIcon}
+              </div>
+            )}
+          </div>
         </div>
+
+        {(helperText || error) && (
+          <div
+            id={helperId}
+            className={getHelperClasses()}
+            role={actualState === 'error' ? 'alert' : undefined}
+            aria-live={actualState === 'error' ? 'polite' : undefined}
+          >
+            {error || helperText}
+          </div>
+        )}
       </div>
-
-      {(helperText || error) && (
-        <div 
-          id={helperId}
-          className={getHelperClasses()}
-          role={actualState === 'error' ? 'alert' : undefined}
-          aria-live={actualState === 'error' ? 'polite' : undefined}
-        >
-          {error || helperText}
-        </div>
-      )}
-    </div>
-  );
-});
+    );
+  }
+);
 
 Input.displayName = 'Input';
 

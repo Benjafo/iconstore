@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'react';
 /**
  * Loading card display variants for different content types
  */
-export type LoadingCardVariant = 
+export type LoadingCardVariant =
   | 'icon-card'
   | 'list-item'
   | 'grid-item'
@@ -144,13 +144,17 @@ export function LoadingCard({
     <div className={containerClasses} {...props}>
       {/* Image area */}
       {showImage && (
-        <div className={`aspect-square ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full`} />
+        <div
+          className={`aspect-square ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full`}
+        />
       )}
 
       {/* Content area */}
       <div className={sizes.container}>
         {/* Title */}
-        <div className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4 mb-2`} />
+        <div
+          className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4 mb-2`}
+        />
 
         {/* Description lines */}
         {Array.from({ length: lines }).map((_, index) => (
@@ -165,16 +169,24 @@ export function LoadingCard({
         {/* Metadata */}
         {showMetadata && (
           <div className="flex justify-between items-center mt-3">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`} />
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`}
+            />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+            />
           </div>
         )}
 
         {/* Actions */}
         {showActions && (
           <div className="flex gap-2 mt-4">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.button} flex-1`} />
-            <div className={`${skeletonBase} rounded-md w-10 ${sizes.button}`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.button} flex-1`}
+            />
+            <div
+              className={`${skeletonBase} rounded-md w-10 ${sizes.button}`}
+            />
           </div>
         )}
       </div>
@@ -182,24 +194,35 @@ export function LoadingCard({
   );
 
   const renderListItemSkeleton = () => (
-    <div className={`${containerClasses} ${sizes.container} flex items-center`} {...props}>
+    <div
+      className={`${containerClasses} ${sizes.container} flex items-center`}
+      {...props}
+    >
       {/* Avatar/icon */}
       {showImage && (
-        <div className={`flex-shrink-0 mr-3 ${skeletonBase} ${sizes.avatar} rounded-full`} />
+        <div
+          className={`flex-shrink-0 mr-3 ${skeletonBase} ${sizes.avatar} rounded-full`}
+        />
       )}
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-1/2 mb-1`} />
+        <div
+          className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-1/2 mb-1`}
+        />
         {lines > 1 && (
-          <div className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-3/4`} />
+          <div
+            className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-3/4`}
+          />
         )}
       </div>
 
       {/* Trailing content */}
       {showMetadata && (
         <div className="flex-shrink-0 ml-3">
-          <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
+          <div
+            className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+          />
         </div>
       )}
     </div>
@@ -209,14 +232,20 @@ export function LoadingCard({
     <div className={containerClasses} {...props}>
       {/* Square image */}
       {showImage && (
-        <div className={`aspect-square ${skeletonBase} ${rounded ? 'rounded-lg' : ''} mb-3`} />
+        <div
+          className={`aspect-square ${skeletonBase} ${rounded ? 'rounded-lg' : ''} mb-3`}
+        />
       )}
 
       {/* Content */}
       <div className="space-y-1">
-        <div className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4`} />
+        <div
+          className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4`}
+        />
         {lines > 1 && (
-          <div className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-1/2`} />
+          <div
+            className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-1/2`}
+          />
         )}
       </div>
     </div>
@@ -226,14 +255,18 @@ export function LoadingCard({
     <div className={containerClasses} {...props}>
       {/* Header image */}
       {showImage && (
-        <div className={`${sizes.image} ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full`} />
+        <div
+          className={`${sizes.image} ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full`}
+        />
       )}
 
       {/* Content */}
       <div className={sizes.container}>
         {/* Title and description */}
         <div className="mb-4">
-          <div className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-2/3 mb-2`} />
+          <div
+            className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-2/3 mb-2`}
+          />
           {Array.from({ length: lines }).map((_, index) => (
             <div
               key={index}
@@ -246,19 +279,31 @@ export function LoadingCard({
 
         {/* Author info */}
         <div className="flex items-center mb-4">
-          <div className={`${skeletonBase} ${sizes.avatar} rounded-full mr-3`} />
-          <div className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-24`} />
+          <div
+            className={`${skeletonBase} ${sizes.avatar} rounded-full mr-3`}
+          />
+          <div
+            className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-24`}
+          />
         </div>
 
         {/* Stats/metadata */}
         {showMetadata && (
           <div className="flex justify-between items-center mb-4">
             <div className="flex space-x-4">
-              <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
-              <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
-              <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
+              <div
+                className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+              />
+              <div
+                className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+              />
+              <div
+                className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+              />
             </div>
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`}
+            />
           </div>
         )}
 
@@ -277,8 +322,12 @@ export function LoadingCard({
         {/* Actions */}
         {showActions && (
           <div className="flex gap-3">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.button} flex-1`} />
-            <div className={`${skeletonBase} rounded-md w-12 ${sizes.button}`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.button} flex-1`}
+            />
+            <div
+              className={`${skeletonBase} rounded-md w-12 ${sizes.button}`}
+            />
           </div>
         )}
       </div>
@@ -289,18 +338,28 @@ export function LoadingCard({
     <div className={`${containerClasses} ${sizes.container} flex`} {...props}>
       {/* Thumbnail */}
       {showImage && (
-        <div className={`flex-shrink-0 w-16 h-16 ${skeletonBase} ${skeletonRounded} mr-4`} />
+        <div
+          className={`flex-shrink-0 w-16 h-16 ${skeletonBase} ${skeletonRounded} mr-4`}
+        />
       )}
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4 mb-1`} />
-        <div className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-1/2 mb-2`} />
-        
+        <div
+          className={`${skeletonBase} ${skeletonRounded} ${sizes.title} w-3/4 mb-1`}
+        />
+        <div
+          className={`${skeletonBase} ${skeletonRounded} ${sizes.line} w-1/2 mb-2`}
+        />
+
         {showMetadata && (
           <div className="flex items-center justify-between">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`} />
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`}
+            />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-12`}
+            />
           </div>
         )}
       </div>
@@ -311,14 +370,18 @@ export function LoadingCard({
     <div className={containerClasses} {...props}>
       {/* Large hero image */}
       {showImage && (
-        <div className={`h-72 ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full mb-6`} />
+        <div
+          className={`h-72 ${skeletonBase} ${rounded ? 'rounded-t-lg' : ''} w-full mb-6`}
+        />
       )}
 
       {/* Content */}
       <div className={`${sizes.container} text-center`}>
         {/* Title */}
-        <div className={`${skeletonBase} ${skeletonRounded} h-6 w-1/2 mx-auto mb-3`} />
-        
+        <div
+          className={`${skeletonBase} ${skeletonRounded} h-6 w-1/2 mx-auto mb-3`}
+        />
+
         {/* Description */}
         {Array.from({ length: lines }).map((_, index) => (
           <div
@@ -332,17 +395,27 @@ export function LoadingCard({
         {/* Metadata row */}
         {showMetadata && (
           <div className="flex justify-center space-x-6 mt-4 mb-6">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-20`} />
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`} />
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-18`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-20`}
+            />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-16`}
+            />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.metadata} w-18`}
+            />
           </div>
         )}
 
         {/* Actions */}
         {showActions && (
           <div className="flex justify-center gap-4">
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.button} w-32`} />
-            <div className={`${skeletonBase} ${skeletonRounded} ${sizes.button} w-28`} />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.button} w-32`}
+            />
+            <div
+              className={`${skeletonBase} ${skeletonRounded} ${sizes.button} w-28`}
+            />
           </div>
         )}
       </div>
