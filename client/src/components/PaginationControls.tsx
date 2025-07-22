@@ -219,11 +219,21 @@ export const PaginationControls: React.FC<PaginationControlsProps> = ({
       : null;
 
   // Generate page numbers
-  const pageNumbers = generatePageNumbers(currentPage, totalPages, siblingCount);
+  const pageNumbers = generatePageNumbers(
+    currentPage,
+    totalPages,
+    siblingCount
+  );
 
   // Navigation handlers
   const goToPage = (page: number) => {
-    if (disabled || loading || page < 1 || page > totalPages || page === currentPage) {
+    if (
+      disabled ||
+      loading ||
+      page < 1 ||
+      page > totalPages ||
+      page === currentPage
+    ) {
       return;
     }
     onPageChange(page);

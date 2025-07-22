@@ -58,8 +58,8 @@ export interface ButtonProps {
  * </Button>
  *
  * // Button with icons
- * <Button 
- *   variant="secondary" 
+ * <Button
+ *   variant="secondary"
  *   startIcon={<DownloadIcon />}
  *   endIcon={<ArrowIcon />}
  * >
@@ -72,103 +72,108 @@ export interface ButtonProps {
  * </Button>
  * ```
  */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
-  children,
-  variant = 'primary',
-  size = 'md',
-  disabled = false,
-  loading = false,
-  fullWidth = false,
-  startIcon,
-  endIcon,
-  type = 'button',
-  onClick,
-  className = '',
-  ...props
-}, ref) => {
-  const getButtonClasses = (): string => {
-    const classes = [
-      'button',
-      `button--${variant}`,
-      `button--${size}`,
-    ];
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant = 'primary',
+      size = 'md',
+      disabled = false,
+      loading = false,
+      fullWidth = false,
+      startIcon,
+      endIcon,
+      type = 'button',
+      onClick,
+      className = '',
+      ...props
+    },
+    ref
+  ) => {
+    const getButtonClasses = (): string => {
+      const classes = ['button', `button--${variant}`, `button--${size}`];
 
-    if (fullWidth) {
-      classes.push('button--full-width');
-    }
+      if (fullWidth) {
+        classes.push('button--full-width');
+      }
 
-    if (loading) {
-      classes.push('button--loading');
-    }
+      if (loading) {
+        classes.push('button--loading');
+      }
 
-    if (disabled && !loading) {
-      classes.push('button--disabled');
-    }
+      if (disabled && !loading) {
+        classes.push('button--disabled');
+      }
 
-    if (className) {
-      classes.push(className);
-    }
+      if (className) {
+        classes.push(className);
+      }
 
-    return classes.join(' ');
-  };
+      return classes.join(' ');
+    };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (disabled || loading) {
-      event.preventDefault();
-      return;
-    }
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled || loading) {
+        event.preventDefault();
+        return;
+      }
 
-    if (onClick) {
-      onClick(event);
-    }
-  };
+      if (onClick) {
+        onClick(event);
+      }
+    };
 
-  const buttonContent = (
-    <>
-      {loading && (
-        <span className="button__loading-spinner" aria-hidden="true">
-          <svg className="button__spinner" viewBox="0 0 20 20" fill="currentColor">
-            <path 
-              fillRule="evenodd" 
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" 
-              clipRule="evenodd" 
-              opacity="0.2"
-            />
-            <path d="M10 2a8 8 0 00-8 8h2a6 6 0 016-6V2z" />
-          </svg>
-        </span>
-      )}
-      
-      {startIcon && !loading && (
-        <span className="button__start-icon" aria-hidden="true">
-          {startIcon}
-        </span>
-      )}
+    const buttonContent = (
+      <>
+        {loading && (
+          <span className="button__loading-spinner" aria-hidden="true">
+            <svg
+              className="button__spinner"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z"
+                clipRule="evenodd"
+                opacity="0.2"
+              />
+              <path d="M10 2a8 8 0 00-8 8h2a6 6 0 016-6V2z" />
+            </svg>
+          </span>
+        )}
 
-      <span className="button__text">{children}</span>
+        {startIcon && !loading && (
+          <span className="button__start-icon" aria-hidden="true">
+            {startIcon}
+          </span>
+        )}
 
-      {endIcon && !loading && (
-        <span className="button__end-icon" aria-hidden="true">
-          {endIcon}
-        </span>
-      )}
-    </>
-  );
+        <span className="button__text">{children}</span>
 
-  return (
-    <button
-      {...props}
-      ref={ref}
-      type={type}
-      className={getButtonClasses()}
-      disabled={disabled || loading}
-      onClick={handleClick}
-      aria-busy={loading}
-    >
-      {buttonContent}
-    </button>
-  );
-});
+        {endIcon && !loading && (
+          <span className="button__end-icon" aria-hidden="true">
+            {endIcon}
+          </span>
+        )}
+      </>
+    );
+
+    return (
+      <button
+        {...props}
+        ref={ref}
+        type={type}
+        className={getButtonClasses()}
+        disabled={disabled || loading}
+        onClick={handleClick}
+        aria-busy={loading}
+      >
+        {buttonContent}
+      </button>
+    );
+  }
+);
 
 Button.displayName = 'Button';
 
