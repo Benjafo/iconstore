@@ -126,7 +126,29 @@
 @layer components {
   /* Enhanced card variants for auth and other elevated content */
   .card-elevated {
-    @apply shadow-xl border-border/50 backdrop-blur-sm;
+    @apply shadow-xl border-border/20 backdrop-blur-sm bg-card/95;
+  }
+  
+  .card-interactive {
+    @apply card-elevated hover:shadow-2xl hover:border-border/30 transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  /* Page containers with consistent styling */
+  .page-container {
+    @apply min-h-screen bg-gradient-to-br from-background via-background to-muted/10;
+  }
+  
+  .content-wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+  
+  .content-header {
+    @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8;
+  }
+  
+  /* Enhanced form styling */
+  .form-section {
+    @apply space-y-6 p-6 rounded-xl bg-card/50 border border-border/20 backdrop-blur-sm;
   }
   
   /* Focus improvements for better accessibility */
@@ -134,13 +156,35 @@
     @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
   
+  /* Typography enhancements */
+  .text-hero {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent;
+  }
+  
+  .text-section-title {
+    @apply text-2xl sm:text-3xl font-semibold tracking-tight text-foreground;
+  }
+  
+  .text-card-title {
+    @apply text-lg font-semibold text-foreground;
+  }
+  
+  /* Button enhancements */
+  .btn-primary-enhanced {
+    @apply bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg hover:shadow-xl transition-all duration-200;
+  }
+  
   /* Animation utilities for loading states */
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.5s ease-out;
   }
   
   .animate-slide-up {
-    animation: slideUp 0.4s ease-out;
+    animation: slideUp 0.6s ease-out;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
   }
   
   /* Loading shimmer effect */
@@ -148,6 +192,16 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
+  }
+  
+  /* Interactive elements */
+  .interactive-card {
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer;
+  }
+  
+  /* Status indicators */
+  .status-online {
+    @apply inline-flex items-center gap-2 px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
   }
 }
 
