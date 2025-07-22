@@ -73,16 +73,16 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-xl border-border/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-        <CardDescription>
+    <Card className="w-full max-w-md mx-auto card-elevated animate-slide-up">
+      <CardHeader className="text-center space-y-2">
+        <CardTitle className="text-card-title text-2xl">Welcome Back</CardTitle>
+        <CardDescription className="text-muted-foreground">
           Enter your credentials to access your account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="email"
