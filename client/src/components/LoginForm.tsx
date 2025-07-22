@@ -125,17 +125,26 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
               </Alert>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Login'}
+            <Button 
+              type="submit" 
+              className="w-full btn-primary-enhanced" 
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center gap-2">
+                  <div className="loading-shimmer w-4 h-4 rounded-full"></div>
+                  Logging in...
+                </span>
+              ) : 'Login'}
             </Button>
 
             {onSwitchToRegister && (
-              <div className="text-center text-sm">
-                Don't have an account?{' '}
+              <div className="text-center text-sm pt-4 border-t border-border/20">
+                <span className="text-muted-foreground">Don't have an account?</span>{' '}
                 <Button
                   type="button"
                   variant="link"
-                  className="p-0 h-auto"
+                  className="p-0 h-auto text-primary hover:text-primary/80 font-medium"
                   onClick={onSwitchToRegister}
                 >
                   Register here
