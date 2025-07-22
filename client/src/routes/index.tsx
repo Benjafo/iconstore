@@ -62,16 +62,16 @@ function Index() {
           {/* Stats Section */}
           <div className="grid grid-cols-3 gap-4 max-w-md mx-auto pt-8 border-t border-border/20">
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary">10K+</div>
-              <div className="text-sm text-muted-foreground">Icons</div>
+              <Text size="xl" weight="bold" className="text-primary">10K+</Text>
+              <Text size="sm" color="muted">Icons</Text>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary">50+</div>
-              <div className="text-sm text-muted-foreground">Categories</div>
+              <Text size="xl" weight="bold" className="text-primary">50+</Text>
+              <Text size="sm" color="muted">Categories</Text>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-primary">1K+</div>
-              <div className="text-sm text-muted-foreground">Users</div>
+              <Text size="xl" weight="bold" className="text-primary">1K+</Text>
+              <Text size="sm" color="muted">Users</Text>
             </div>
           </div>
         </div>
