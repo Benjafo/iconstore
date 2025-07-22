@@ -125,9 +125,9 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
               </Alert>
             )}
 
-            <Button 
-              type="submit" 
-              className="w-full btn-primary-enhanced" 
+            <Button
+              type="submit"
+              className="w-full btn-primary-enhanced"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -135,12 +135,16 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
                   <div className="loading-shimmer w-4 h-4 rounded-full"></div>
                   Logging in...
                 </span>
-              ) : 'Login'}
+              ) : (
+                'Login'
+              )}
             </Button>
 
             {onSwitchToRegister && (
               <div className="text-center text-sm pt-4 border-t border-border/20">
-                <span className="text-muted-foreground">Don't have an account?</span>{' '}
+                <span className="text-muted-foreground">
+                  Don't have an account?
+                </span>{' '}
                 <Button
                   type="button"
                   variant="link"

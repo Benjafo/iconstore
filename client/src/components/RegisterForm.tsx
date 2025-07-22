@@ -95,14 +95,16 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-xl border-border/50 backdrop-blur-sm">
-      <CardHeader>
-        <CardTitle>Create Account</CardTitle>
-        <CardDescription>Sign up to start collecting icons</CardDescription>
+    <Card className="w-full max-w-md mx-auto card-elevated animate-slide-up">
+      <CardHeader className="text-center space-y-2">
+        <CardTitle className="text-card-title text-2xl">Create Account</CardTitle>
+        <CardDescription className="text-muted-foreground">
+          Sign up to start collecting icons
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="username"
