@@ -78,6 +78,66 @@ POST /auth/login
 }
 ```
 
+### Forgot Password
+
+```
+POST /auth/forgot-password
+```
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "Password reset email sent",
+  "reset_token_expires_at": "2024-01-15T11:00:00Z"
+}
+```
+
+### Reset Password
+
+```
+POST /auth/reset-password
+```
+
+**Request Body:**
+
+```json
+{
+  "token": "reset-token-from-email",
+  "new_password": "newsecurepassword123"
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "Password successfully reset",
+  "user": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "email": "user@example.com",
+    "username": "johndoe"
+  }
+}
+```
+
+**Error Response (Invalid Token):**
+
+```json
+{
+  "error": "invalid_token",
+  "message": "Reset token is invalid or expired"
+}
+```
+
 ---
 
 ## User Endpoints
