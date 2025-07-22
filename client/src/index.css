@@ -122,3 +122,68 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Enhanced card variants for auth and other elevated content */
+  .card-elevated {
+    @apply shadow-lg border-border/50 backdrop-blur-sm;
+  }
+  
+  /* Focus improvements for better accessibility */
+  .focus-enhanced {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  
+  /* Animation utilities for loading states */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+  
+  /* Loading shimmer effect */
+  .loading-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@layer utilities {
+  /* Typography utilities that respect design tokens */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Safe area utilities for mobile */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
