@@ -73,7 +73,7 @@ export function LoginForm({ onSwitchToRegister }: LoginFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg border-border/50 backdrop-blur-sm">
+    <Card className="w-full max-w-md mx-auto shadow-xl border-border/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Login</CardTitle>
         <CardDescription>
