@@ -26,7 +26,7 @@ export interface StackProps {
 /**
  * Stack - Vertical/horizontal spacing component for flexible layouts.
  * Provides consistent spacing between elements in a row or column layout.
- * 
+ *
  * @example
  * ```tsx
  * // Vertical stack
@@ -35,12 +35,12 @@ export interface StackProps {
  *   <div>Item 2</div>
  *   <div>Item 3</div>
  * </Stack>
- * 
+ *
  * // Horizontal stack with space between
- * <Stack 
- *   direction="row" 
- *   gap="sm" 
- *   justify="between" 
+ * <Stack
+ *   direction="row"
+ *   gap="sm"
+ *   justify="between"
  *   align="center"
  * >
  *   <button>Cancel</button>
@@ -66,15 +66,15 @@ export const Stack: React.FC<StackProps> = ({
       `stack--justify-${justify}`,
       `stack--align-${align}`,
     ];
-    
+
     if (wrap) {
       classes.push('stack--wrap');
     }
-    
+
     if (className) {
       classes.push(className);
     }
-    
+
     return classes.join(' ');
   };
 
