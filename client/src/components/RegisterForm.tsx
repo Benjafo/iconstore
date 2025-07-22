@@ -95,7 +95,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto shadow-lg border-border/50 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>Create Account</CardTitle>
         <CardDescription>Sign up to start collecting icons</CardDescription>
