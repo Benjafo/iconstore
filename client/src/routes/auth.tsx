@@ -23,7 +23,7 @@ function Auth() {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
   return (
-    <CenteredLayout 
+    <CenteredLayout
       background="gradient"
       containerSize="md"
       header={
