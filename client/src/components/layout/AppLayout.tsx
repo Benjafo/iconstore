@@ -18,7 +18,7 @@ export interface AppLayoutProps {
 /**
  * AppLayout - Main application shell with header, main content, and footer areas.
  * Provides a consistent layout structure across the application.
- * 
+ *
  * @example
  * ```tsx
  * <AppLayout
@@ -37,21 +37,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 }) => {
   return (
     <div className={`app-layout ${className}`.trim()}>
-      {header && (
-        <header className="app-layout__header">
-          {header}
-        </header>
-      )}
-      
-      <main className="app-layout__main">
-        {children}
-      </main>
-      
-      {footer && (
-        <footer className="app-layout__footer">
-          {footer}
-        </footer>
-      )}
+      {header && <header className="app-layout__header">{header}</header>}
+
+      <main className="app-layout__main">{children}</main>
+
+      {footer && <footer className="app-layout__footer">{footer}</footer>}
     </div>
   );
 };
