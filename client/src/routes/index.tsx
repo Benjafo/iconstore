@@ -118,12 +118,14 @@ function Index() {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardHeader className="text-center pb-4">
-                <div className="text-4xl mb-3">{feature.icon}</div>
+                <Text as="div" className="text-4xl mb-3">{feature.icon}</Text>
                 <CardTitle className="text-card-title">
                   {feature.title}
                 </CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  {feature.description}
+                <CardDescription>
+                  <Text color="muted">
+                    {feature.description}
+                  </Text>
                 </CardDescription>
               </CardHeader>
               <CardContent>
