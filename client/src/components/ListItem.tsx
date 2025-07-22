@@ -8,7 +8,8 @@ export type ListItemVariant = 'default' | 'compact' | 'detailed' | 'category';
 /**
  * Props for the ListItem component
  */
-export interface ListItemProps extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
+export interface ListItemProps
+  extends Omit<HTMLAttributes<HTMLElement>, 'onClick'> {
   /** Primary text/title */
   title: string;
   /** Secondary text/description */
@@ -49,11 +50,11 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLElement>, 'onClic
 
 /**
  * ListItem - Consistent list item formatting component
- * 
+ *
  * Provides a flexible list item with support for various content types,
  * states, and interactions. Suitable for navigation lists, content lists,
  * search results, and category displays in an icon pack store context.
- * 
+ *
  * @example
  * ```tsx
  * // Basic list item
@@ -62,7 +63,7 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLElement>, 'onClic
  *   description="24 icons for social platforms"
  *   icon={<Icon name="folder" />}
  * />
- * 
+ *
  * // Category item with count
  * <ListItem
  *   title="UI/UX Icons"
@@ -70,7 +71,7 @@ export interface ListItemProps extends Omit<HTMLAttributes<HTMLElement>, 'onClic
  *   metadata={{ count: 156 }}
  *   onClick={() => handleCategoryClick()}
  * />
- * 
+ *
  * // Detailed item with avatar and badges
  * <ListItem
  *   title="Icon Pack Name"
@@ -107,7 +108,12 @@ export function ListItem({
   };
 
   const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
-    if ((event.key === 'Enter' || event.key === ' ') && onClick && !disabled && !loading) {
+    if (
+      (event.key === 'Enter' || event.key === ' ') &&
+      onClick &&
+      !disabled &&
+      !loading
+    ) {
       event.preventDefault();
       onClick(event as any);
     }
@@ -121,7 +127,9 @@ export function ListItem({
     variant === 'default' && 'py-3 px-4',
     variant === 'detailed' && 'py-4 px-4',
     variant === 'category' && 'py-2.5 px-3',
-    !disabled && (clickable || onClick) && 'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800',
+    !disabled &&
+      (clickable || onClick) &&
+      'cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800',
     active && 'bg-blue-50 dark:bg-blue-900/20 border-r-2 border-blue-500',
     disabled && 'opacity-50 cursor-not-allowed',
     loading && 'animate-pulse',
@@ -133,8 +141,10 @@ export function ListItem({
   const statusColors = {
     new: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
     updated: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200',
-    popular: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-    featured: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+    popular:
+      'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+    featured:
+      'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
   };
 
   if (loading) {
@@ -180,7 +190,9 @@ export function ListItem({
 
     if (icon) {
       return (
-        <div className={`flex-shrink-0 mr-3 ${variant === 'compact' ? 'text-sm' : ''}`}>
+        <div
+          className={`flex-shrink-0 mr-3 ${variant === 'compact' ? 'text-sm' : ''}`}
+        >
           {icon}
         </div>
       );
@@ -197,7 +209,7 @@ export function ListItem({
     if (metadata.count !== undefined) {
       elements.push(
         <span key="count" className="text-sm text-gray-500 dark:text-gray-400">
-          {metadata.count.toLocaleString()} 
+          {metadata.count.toLocaleString()}
           {variant === 'category' ? ' items' : ''}
         </span>
       );
@@ -205,7 +217,10 @@ export function ListItem({
 
     if (metadata.price) {
       elements.push(
-        <span key="price" className="text-sm font-medium text-gray-900 dark:text-white">
+        <span
+          key="price"
+          className="text-sm font-medium text-gray-900 dark:text-white"
+        >
           {metadata.price}
         </span>
       );
@@ -235,55 +250,58 @@ export function ListItem({
     if (elements.length === 0) return null;
 
     return (
-      <div className={`flex items-center gap-2 ${variant === 'detailed' ? 'flex-wrap' : ''}`}>
+      <div
+        className={`flex items-center gap-2 ${variant === 'detailed' ? 'flex-wrap' : ''}`}
+      >
         {elements}
       </div>
     );
   };
 
-  const Element = (onClick || clickable) ? 'button' : 'div';
-  const interactiveProps = (onClick || clickable) ? {
-    onClick: handleClick,
-    onKeyPress: handleKeyPress,
-    tabIndex: disabled ? -1 : 0,
-    role: 'button',
-    'aria-pressed': active,
-    'aria-disabled': disabled,
-  } : {};
+  const Element = onClick || clickable ? 'button' : 'div';
+  const interactiveProps =
+    onClick || clickable
+      ? {
+          onClick: handleClick,
+          onKeyPress: handleKeyPress,
+          tabIndex: disabled ? -1 : 0,
+          role: 'button',
+          'aria-pressed': active,
+          'aria-disabled': disabled,
+        }
+      : {};
 
   return (
     <>
-      <Element
-        className={itemClasses}
-        {...interactiveProps}
-        {...props}
-      >
+      <Element className={itemClasses} {...interactiveProps} {...props}>
         {renderIcon()}
-        
+
         <div className="flex-1 min-w-0">
-          <div className={`flex items-center ${variant === 'detailed' ? 'justify-between' : ''}`}>
+          <div
+            className={`flex items-center ${variant === 'detailed' ? 'justify-between' : ''}`}
+          >
             <div className="flex-1 min-w-0">
-              <h3 className={`font-medium text-gray-900 dark:text-white truncate ${
-                variant === 'compact' ? 'text-sm' : 'text-base'
-              }`}>
+              <h3
+                className={`font-medium text-gray-900 dark:text-white truncate ${
+                  variant === 'compact' ? 'text-sm' : 'text-base'
+                }`}
+              >
                 {title}
               </h3>
-              
+
               {description && variant !== 'compact' && (
-                <p className={`text-gray-600 dark:text-gray-400 truncate mt-0.5 ${
-                  variant === 'detailed' ? 'text-sm' : 'text-sm'
-                }`}>
+                <p
+                  className={`text-gray-600 dark:text-gray-400 truncate mt-0.5 ${
+                    variant === 'detailed' ? 'text-sm' : 'text-sm'
+                  }`}
+                >
                   {description}
                 </p>
               )}
             </div>
 
             {/* Badge */}
-            {badge && (
-              <div className="flex-shrink-0 ml-2">
-                {badge}
-              </div>
-            )}
+            {badge && <div className="flex-shrink-0 ml-2">{badge}</div>}
           </div>
 
           {/* Metadata row for detailed variant */}
@@ -304,8 +322,18 @@ export function ListItem({
         {/* Arrow indicator for clickable items */}
         {(onClick || clickable) && !trailing && variant !== 'detailed' && (
           <div className="flex-shrink-0 ml-2 text-gray-400 dark:text-gray-500">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </div>
         )}
