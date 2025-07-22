@@ -1,0 +1,439 @@
+/* PaginationControls Component Styles */
+
+.pagination-controls {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text-primary, #213547);
+}
+
+.pagination-controls__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-controls__info-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  font-weight: 500;
+}
+
+.pagination-controls__container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  position: relative;
+}
+
+/* Button Base Styles */
+.pagination-controls__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  background: var(--button-bg, #ffffff);
+  border: 1px solid var(--button-border, #d1d5db);
+  color: var(--button-text, #374151);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.pagination-controls__button:hover:not(:disabled) {
+  background: var(--button-hover-bg, #f9fafb);
+  border-color: var(--button-hover-border, #9ca3af);
+  color: var(--button-hover-text, #111827);
+}
+
+.pagination-controls__button:focus {
+  outline: 2px solid var(--focus-color, #646cff);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.pagination-controls__button:active:not(:disabled) {
+  transform: translateY(1px);
+  background: var(--button-active-bg, #f3f4f6);
+}
+
+.pagination-controls__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--button-disabled-bg, #f9fafb);
+  color: var(--button-disabled-text, #9ca3af);
+}
+
+.pagination-controls__button-icon {
+  font-size: 0.875em;
+  line-height: 1;
+}
+
+.pagination-controls__button-text {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+/* Page Numbers */
+.pagination-controls__pages {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+.pagination-controls__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  background: var(--page-bg, #ffffff);
+  border: 1px solid var(--page-border, #d1d5db);
+  color: var(--page-text, #374151);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+}
+
+.pagination-controls__page:hover:not(:disabled) {
+  background: var(--page-hover-bg, #f9fafb);
+  border-color: var(--page-hover-border, #9ca3af);
+  color: var(--page-hover-text, #111827);
+}
+
+.pagination-controls__page:focus {
+  outline: 2px solid var(--focus-color, #646cff);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.pagination-controls__page--active {
+  background: var(--page-active-bg, #646cff);
+  border-color: var(--page-active-border, #646cff);
+  color: var(--page-active-text, #ffffff);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-controls__page--active:hover {
+  background: var(--page-active-hover-bg, #5145e6);
+  border-color: var(--page-active-hover-border, #5145e6);
+}
+
+.pagination-controls__ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  color: var(--text-secondary, #666);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* Current Page Info (Minimal Variant) */
+.pagination-controls__current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+}
+
+.pagination-controls__current-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #666);
+  font-weight: 500;
+}
+
+/* Size Variants */
+.pagination-controls--sm .pagination-controls__button {
+  min-height: 2rem;
+  padding: 0 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+}
+
+.pagination-controls--sm .pagination-controls__page {
+  min-width: 2rem;
+  height: 2rem;
+  font-size: 0.8125rem;
+  border-radius: 0.25rem;
+}
+
+.pagination-controls--sm .pagination-controls__ellipsis {
+  min-width: 2rem;
+  height: 2rem;
+  font-size: 0.8125rem;
+}
+
+.pagination-controls--md .pagination-controls__button {
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.pagination-controls--lg .pagination-controls__button {
+  min-height: 3rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.pagination-controls--lg .pagination-controls__page {
+  min-width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+}
+
+.pagination-controls--lg .pagination-controls__ellipsis {
+  min-width: 3rem;
+  height: 3rem;
+  font-size: 1rem;
+}
+
+/* Alignment Variants */
+.pagination-controls--left .pagination-controls__container {
+  justify-content: flex-start;
+}
+
+.pagination-controls--left .pagination-controls__info {
+  justify-content: flex-start;
+}
+
+.pagination-controls--center .pagination-controls__container {
+  justify-content: center;
+}
+
+.pagination-controls--right .pagination-controls__container {
+  justify-content: flex-end;
+}
+
+.pagination-controls--right .pagination-controls__info {
+  justify-content: flex-end;
+}
+
+.pagination-controls--between .pagination-controls__container {
+  justify-content: space-between;
+}
+
+.pagination-controls--between .pagination-controls__info {
+  justify-content: center;
+}
+
+/* Display Variants */
+.pagination-controls--minimal .pagination-controls__pages {
+  display: none;
+}
+
+.pagination-controls--numbered .pagination-controls__button--first,
+.pagination-controls--numbered .pagination-controls__button--last {
+  display: none;
+}
+
+.pagination-controls--compact .pagination-controls__button-text {
+  display: none;
+}
+
+.pagination-controls--compact .pagination-controls__button {
+  min-width: 2.5rem;
+}
+
+/* Loading State */
+.pagination-controls--loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pagination-controls__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.pagination-controls__spinner {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--spinner-bg, #e5e7eb);
+  border-top: 2px solid var(--spinner-color, #646cff);
+  border-radius: 50%;
+  animation: pagination-spin 1s linear infinite;
+}
+
+@keyframes pagination-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Disabled State */
+.pagination-controls--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Icon Store Context - Special Styling */
+.pagination-controls__button--first,
+.pagination-controls__button--last {
+  border-radius: 0.5rem;
+}
+
+.pagination-controls__button--prev {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+}
+
+.pagination-controls__button--next {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: none;
+}
+
+.pagination-controls__pages .pagination-controls__page:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.pagination-controls__pages .pagination-controls__page:last-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .pagination-controls {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .pagination-controls__info-text {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .pagination-controls__current-text {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .pagination-controls__button {
+    background: var(--button-bg-dark, #2d3748);
+    border-color: var(--button-border-dark, #4a5568);
+    color: var(--button-text-dark, #e2e8f0);
+  }
+
+  .pagination-controls__button:hover:not(:disabled) {
+    background: var(--button-hover-bg-dark, #4a5568);
+    border-color: var(--button-hover-border-dark, #718096);
+    color: var(--button-hover-text-dark, #f7fafc);
+  }
+
+  .pagination-controls__button:disabled {
+    background: var(--button-disabled-bg-dark, #1a202c);
+    color: var(--button-disabled-text-dark, #4a5568);
+  }
+
+  .pagination-controls__page {
+    background: var(--page-bg-dark, #2d3748);
+    border-color: var(--page-border-dark, #4a5568);
+    color: var(--page-text-dark, #e2e8f0);
+  }
+
+  .pagination-controls__page:hover:not(:disabled) {
+    background: var(--page-hover-bg-dark, #4a5568);
+    border-color: var(--page-hover-border-dark, #718096);
+    color: var(--page-hover-text-dark, #f7fafc);
+  }
+
+  .pagination-controls__ellipsis {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .pagination-controls__spinner {
+    border-color: var(--spinner-bg-dark, #4a5568);
+    border-top-color: var(--spinner-color-dark, #60a5fa);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .pagination-controls__button,
+  .pagination-controls__page {
+    border-width: 2px;
+  }
+
+  .pagination-controls__page--active {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .pagination-controls__button,
+  .pagination-controls__page {
+    transition: none;
+  }
+
+  .pagination-controls__button:active:not(:disabled) {
+    transform: none;
+  }
+
+  .pagination-controls__spinner {
+    animation: none;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pagination-controls {
+    gap: 0.5rem;
+  }
+
+  .pagination-controls__container {
+    gap: 0.125rem;
+  }
+
+  /* Hide text on small screens for compact display */
+  .pagination-controls__button-text {
+    display: none;
+  }
+
+  .pagination-controls__button {
+    min-width: 2.5rem;
+    padding: 0 0.5rem;
+  }
+
+  /* Show fewer page numbers on mobile */
+  .pagination-controls__pages {
+    overflow: hidden;
+  }
+
+  /* Stack info and controls on very small screens */
+  @media (max-width: 480px) {
+    .pagination-controls--between {
+      flex-direction: column;
+    }
+
+    .pagination-controls--between .pagination-controls__container {
+      justify-content: center;
+    }
+  }
+}
+
+/* Print Styles */
+@media print {
+  .pagination-controls {
+    display: none;
+  }
+}
