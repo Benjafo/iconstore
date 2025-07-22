@@ -9,7 +9,6 @@ export { LoadingCard } from './LoadingCard';
 export { Button } from './Button';
 export { Input } from './Input';
 export { SearchBox } from './SearchBox';
-export { Modal } from './Modal';
 
 // Re-export types
 export type { IconGridProps, IconGridItem } from './IconGrid';
