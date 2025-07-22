@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { useToastContext } from './ToastContainer';
-import { ToastData, ToastVariant, ToastAction } from './Toast';
+import { useToastContext } from '../components/ToastContainer';
+import { ToastData, ToastVariant, ToastAction } from '../components/Toast';
 
 /**
  * Options for creating a toast notification
