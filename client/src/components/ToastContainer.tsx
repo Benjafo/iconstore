@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useCallback,
+  useEffect,
+} from 'react';
 import { Toast, ToastData, ToastPosition } from './Toast';
 import './Toast.css';
 
@@ -79,7 +85,7 @@ const DEFAULT_CONFIG: Required<ToastContainerConfig> = {
   defaultDismissible: true,
   defaultShowProgress: true,
   toastGap: 8,
-  newestOnTop: true
+  newestOnTop: true,
 };
 
 /**
@@ -90,48 +96,48 @@ const toastReducer = (state: ToastState, action: ToastAction): ToastState => {
     case 'ADD_TOAST': {
       const { maxToasts, newestOnTop } = state.config;
       let newToasts = [...state.toasts];
-      
+
       // Add new toast
       if (newestOnTop) {
         newToasts.unshift(action.payload);
       } else {
         newToasts.push(action.payload);
       }
-      
+
       // Enforce max toasts limit
       if (newToasts.length > maxToasts) {
-        newToasts = newestOnTop 
+        newToasts = newestOnTop
           ? newToasts.slice(0, maxToasts)
           : newToasts.slice(-maxToasts);
       }
-      
+
       return {
         ...state,
-        toasts: newToasts
+        toasts: newToasts,
       };
     }
-    
+
     case 'REMOVE_TOAST':
       return {
         ...state,
-        toasts: state.toasts.filter(toast => toast.id !== action.payload)
+        toasts: state.toasts.filter(toast => toast.id !== action.payload),
       };
-    
+
     case 'CLEAR_ALL':
       return {
         ...state,
-        toasts: []
+        toasts: [],
       };
-    
+
     case 'UPDATE_CONFIG':
       return {
         ...state,
         config: {
           ...state.config,
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
-    
+
     default:
       return state;
   }
@@ -180,7 +186,9 @@ const generateToastId = (): string => {
  * </ToastContainer>
  * ```
  */
-export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProps>> = ({
+export const ToastContainer: React.FC<
+  React.PropsWithChildren<ToastContainerProps>
+> = ({
   children,
   maxToasts = DEFAULT_CONFIG.maxToasts,
   position = DEFAULT_CONFIG.position,
@@ -191,7 +199,7 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
   newestOnTop = DEFAULT_CONFIG.newestOnTop,
   className = '',
   style,
-  portalTarget
+  portalTarget,
 }) => {
   // Initialize state with configuration
   const [state, dispatch] = useReducer(toastReducer, {
@@ -203,8 +211,8 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
       defaultDismissible,
       defaultShowProgress,
       toastGap,
-      newestOnTop
-    }
+      newestOnTop,
+    },
   });
 
   // Update configuration when props change
@@ -218,8 +226,8 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
         defaultDismissible,
         defaultShowProgress,
         toastGap,
-        newestOnTop
-      }
+        newestOnTop,
+      },
     });
   }, [
     maxToasts,
@@ -228,28 +236,30 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
     defaultDismissible,
     defaultShowProgress,
     toastGap,
-    newestOnTop
+    newestOnTop,
   ]);
 
   /**
    * Add a new toast notification
    */
-  const addToast = useCallback((
-    toastData: Omit<ToastData, 'id' | 'createdAt'>
-  ): string => {
-    const id = generateToastId();
-    const toast: ToastData = {
-      ...toastData,
-      id,
-      createdAt: Date.now(),
-      duration: toastData.duration ?? state.config.defaultDuration,
-      dismissible: toastData.dismissible ?? state.config.defaultDismissible,
-      showProgress: toastData.showProgress ?? state.config.defaultShowProgress
-    };
+  const addToast = useCallback(
+    (toastData: Omit<ToastData, 'id' | 'createdAt'>): string => {
+      const id = generateToastId();
+      const toast: ToastData = {
+        ...toastData,
+        id,
+        createdAt: Date.now(),
+        duration: toastData.duration ?? state.config.defaultDuration,
+        dismissible: toastData.dismissible ?? state.config.defaultDismissible,
+        showProgress:
+          toastData.showProgress ?? state.config.defaultShowProgress,
+      };
 
-    dispatch({ type: 'ADD_TOAST', payload: toast });
-    return id;
-  }, [state.config]);
+      dispatch({ type: 'ADD_TOAST', payload: toast });
+      return id;
+    },
+    [state.config]
+  );
 
   /**
    * Remove a specific toast
@@ -281,7 +291,7 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
     clearAll,
     updateConfig,
     toasts: state.toasts,
-    config: state.config
+    config: state.config,
   };
 
   /**
@@ -290,7 +300,7 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
   const getContainerClasses = () => {
     const classes = [
       'toast-container',
-      `toast-container--${state.config.position.replace('-', '_')}`
+      `toast-container--${state.config.position.replace('-', '_')}`,
     ];
 
     if (className) {
@@ -306,7 +316,7 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
   const getContainerStyles = (): React.CSSProperties => {
     return {
       ...style,
-      '--toast-gap': `${state.config.toastGap}px`
+      '--toast-gap': `${state.config.toastGap}px`,
     } as React.CSSProperties;
   };
 
@@ -342,9 +352,10 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
 
   // Render using portal if target specified, otherwise render normally
   const toastList = renderToasts();
-  const portalContent = portalTarget && toastList
-    ? React.createPortal(toastList, portalTarget)
-    : toastList;
+  const portalContent =
+    portalTarget && toastList
+      ? React.createPortal(toastList, portalTarget)
+      : toastList;
 
   return (
     <ToastContext.Provider value={contextValue}>
@@ -360,11 +371,11 @@ export const ToastContainer: React.FC<React.PropsWithChildren<ToastContainerProp
  */
 export const useToastContext = (): ToastContextValue => {
   const context = useContext(ToastContext);
-  
+
   if (!context) {
     throw new Error('useToastContext must be used within a ToastContainer');
   }
-  
+
   return context;
 };
 

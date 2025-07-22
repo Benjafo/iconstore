@@ -5,6 +5,11 @@ export { ListItem } from './ListItem';
 export { EmptyState } from './EmptyState';
 export { LoadingCard } from './LoadingCard';
 
+// UI Components
+export { Button } from './Button';
+export { Input } from './Input';
+export { Modal } from './Modal';
+
 // Re-export types
 export type { IconGridProps, IconGridItem } from './IconGrid';
 
@@ -15,3 +20,9 @@ export type { ListItemProps, ListItemVariant } from './ListItem';
 export type { EmptyStateProps, EmptyStateVariant } from './EmptyState';
 
 export type { LoadingCardProps, LoadingCardVariant } from './LoadingCard';
+
+export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+
+export type { InputProps, InputVariant, InputSize, InputState } from './Input';
+
+export type { ModalProps, ModalSize } from './Modal';
