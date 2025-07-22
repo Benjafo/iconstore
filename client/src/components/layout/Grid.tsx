@@ -36,7 +36,7 @@ export interface GridProps {
 /**
  * Grid - Flexible grid system for responsive layouts.
  * Supports responsive column counts and customizable gap sizes.
- * 
+ *
  * @example
  * ```tsx
  * // Simple grid with 3 columns
@@ -45,10 +45,10 @@ export interface GridProps {
  *   <div>Item 2</div>
  *   <div>Item 3</div>
  * </Grid>
- * 
+ *
  * // Responsive grid
- * <Grid 
- *   columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} 
+ * <Grid
+ *   columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
  *   gap="lg"
  * >
  *   <div>Item 1</div>
@@ -65,10 +65,10 @@ export const Grid: React.FC<GridProps> = ({
 }) => {
   const getGridClasses = () => {
     const classes = ['grid'];
-    
+
     // Add gap class
     classes.push(`grid--gap-${gap}`);
-    
+
     // Handle columns
     if (typeof columns === 'number') {
       classes.push(`grid--cols-${columns}`);
@@ -80,12 +80,12 @@ export const Grid: React.FC<GridProps> = ({
         }
       });
     }
-    
+
     // Add custom className
     if (className) {
       classes.push(className);
     }
-    
+
     return classes.join(' ');
   };
 

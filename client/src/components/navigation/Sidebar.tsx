@@ -64,10 +64,10 @@ export interface SidebarProps {
 
 /**
  * Collapsible sidebar navigation component
- * 
+ *
  * Provides side navigation with support for categories, filters, and hierarchical
  * menu items. Designed for an icon pack store application with collapsible functionality.
- * 
+ *
  * @param props - Sidebar component props
  * @returns JSX element representing the sidebar
  */
@@ -81,13 +81,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   className = '',
   position = 'left',
 }) => {
-  const [sectionStates, setSectionStates] = useState<Record<string, boolean>>({});
+  const [sectionStates, setSectionStates] = useState<Record<string, boolean>>(
+    {}
+  );
   const [itemStates, setItemStates] = useState<Record<string, boolean>>({});
 
   // Initialize section collapse states
   useEffect(() => {
     const initialStates: Record<string, boolean> = {};
-    sections.forEach((section) => {
+    sections.forEach(section => {
       if (section.collapsible) {
         initialStates[section.id] = !section.initiallyCollapsed;
       }
@@ -98,8 +100,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   // Initialize item expand states
   useEffect(() => {
     const initialStates: Record<string, boolean> = {};
-    sections.forEach((section) => {
-      section.items.forEach((item) => {
+    sections.forEach(section => {
+      section.items.forEach(item => {
         if (item.children && item.children.length > 0) {
           initialStates[item.id] = item.expanded || false;
         }
@@ -109,14 +111,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   }, [sections]);
 
   const toggleSection = (sectionId: string) => {
-    setSectionStates((prev) => ({
+    setSectionStates(prev => ({
       ...prev,
       [sectionId]: !prev[sectionId],
     }));
   };
 
   const toggleItem = (itemId: string) => {
-    setItemStates((prev) => ({
+    setItemStates(prev => ({
       ...prev,
       [itemId]: !prev[itemId],
     }));
@@ -127,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     if (item.children && item.children.length > 0) {
       toggleItem(item.id);
     }
-    
+
     // Call the item's onClick handler
     item.onClick?.();
   };
@@ -141,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div key={item.id} className="sidebar-item-container">
         <a
           href={item.href}
-          onClick={(e) => {
+          onClick={e => {
             if (item.onClick || hasChildren) {
               e.preventDefault();
               handleItemClick(item);
@@ -162,7 +164,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span className="sidebar-item-badge">{item.badge}</span>
             )}
             {!isCollapsed && hasChildren && (
-              <span className={`sidebar-item-arrow ${isExpanded ? 'expanded' : ''}`}>
+              <span
+                className={`sidebar-item-arrow ${isExpanded ? 'expanded' : ''}`}
+              >
                 ›
               </span>
             )}
@@ -172,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Render children if expanded and sidebar is not collapsed */}
         {hasChildren && isExpanded && !isCollapsed && (
           <div className="sidebar-item-children">
-            {item.children!.map((child) => renderItem(child, level + 1))}
+            {item.children!.map(child => renderItem(child, level + 1))}
           </div>
         )}
       </div>
@@ -193,7 +197,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => toggleSection(section.id)}
                 aria-expanded={isExpanded}
               >
-                <span className={`sidebar-section-arrow ${isExpanded ? 'expanded' : ''}`}>
+                <span
+                  className={`sidebar-section-arrow ${isExpanded ? 'expanded' : ''}`}
+                >
                   ›
                 </span>
               </button>
@@ -203,7 +209,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {(isExpanded || isCollapsed) && (
           <div className="sidebar-section-items">
-            {section.items.map((item) => renderItem(item))}
+            {section.items.map(item => renderItem(item))}
           </div>
         )}
       </div>
@@ -225,16 +231,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
-          <span className={`sidebar-toggle-icon ${isCollapsed ? 'collapsed' : ''}`}>
+          <span
+            className={`sidebar-toggle-icon ${isCollapsed ? 'collapsed' : ''}`}
+          >
             {position === 'left' ? '◀' : '▶'}
           </span>
         </button>
       )}
 
       {/* Sidebar content */}
-      <nav className="sidebar-nav">
-        {sections.map(renderSection)}
-      </nav>
+      <nav className="sidebar-nav">{sections.map(renderSection)}</nav>
 
       <style jsx>{`
         .sidebar {

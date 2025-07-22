@@ -52,7 +52,8 @@ export interface IconPackData {
 /**
  * Props for the IconCard component
  */
-export interface IconCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
+export interface IconCardProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> {
   /** Icon pack data to display */
   data: IconPackData;
   /** Card variant/size */
@@ -77,10 +78,10 @@ export interface IconCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
 
 /**
  * IconCard - Individual icon pack preview card component
- * 
+ *
  * Displays icon pack information including preview, name, description,
  * pricing, stats, and metadata. Supports different variants and interactive states.
- * 
+ *
  * @example
  * ```tsx
  * const packData = {
@@ -91,7 +92,7 @@ export interface IconCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onC
  *   price: { amount: 12.99, currency: 'USD' },
  *   author: { name: 'John Doe' }
  * };
- * 
+ *
  * <IconCard
  *   data={packData}
  *   variant="default"
@@ -169,13 +170,13 @@ export function IconCard({
   const formatPrice = () => {
     if (!data.price) return 'Free';
     if (data.free) return 'Free';
-    
+
     const { amount, currency, originalPrice } = data.price;
     const formatted = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: currency || 'USD',
     }).format(amount);
-    
+
     if (originalPrice && originalPrice > amount) {
       const originalFormatted = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -192,7 +193,7 @@ export function IconCard({
         </span>
       );
     }
-    
+
     return <span className="font-semibold">{formatted}</span>;
   };
 
@@ -233,11 +234,9 @@ export function IconCard({
             loading="lazy"
           />
         ) : (
-          <div className="text-6xl text-gray-400 dark:text-gray-500">
-            📦
-          </div>
+          <div className="text-6xl text-gray-400 dark:text-gray-500">📦</div>
         )}
-        
+
         {/* Overlay for additional info on hover */}
         {variant === 'detailed' && (
           <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 transition-all duration-200 flex items-center justify-center opacity-0 hover:opacity-100">
@@ -300,16 +299,14 @@ export function IconCard({
                 {data.stats.likes && (
                   <span>♥ {formatCount(data.stats.likes)}</span>
                 )}
-                {data.rating && (
-                  <span>★ {data.rating.average.toFixed(1)}</span>
-                )}
+                {data.rating && <span>★ {data.rating.average.toFixed(1)}</span>}
               </div>
             )}
 
             {/* Tags */}
             {data.tags && data.tags.length > 0 && variant === 'detailed' && (
               <div className="flex flex-wrap gap-1 mt-2">
-                {data.tags.slice(0, 3).map((tag) => (
+                {data.tags.slice(0, 3).map(tag => (
                   <span
                     key={tag}
                     className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 px-2 py-1 rounded-full"
