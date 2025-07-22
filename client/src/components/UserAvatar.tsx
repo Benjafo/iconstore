@@ -42,7 +42,10 @@ export interface UserAvatarProps {
 /**
  * Size mapping for CSS classes and dimensions
  */
-const SIZE_CONFIG: Record<AvatarSize, { className: string; dimension: string }> = {
+const SIZE_CONFIG: Record<
+  AvatarSize,
+  { className: string; dimension: string }
+> = {
   xs: { className: 'user-avatar--xs', dimension: '24px' },
   sm: { className: 'user-avatar--sm', dimension: '32px' },
   md: { className: 'user-avatar--md', dimension: '40px' },
@@ -55,29 +58,29 @@ const SIZE_CONFIG: Record<AvatarSize, { className: string; dimension: string }> 
  * UserAvatar - Display user profile pictures with intelligent fallbacks.
  * Includes support for initials, loading states, online status, and various sizes/shapes
  * suitable for an icon pack store application.
- * 
+ *
  * @example
  * ```tsx
  * // Basic usage with image
- * <UserAvatar 
- *   name="John Doe" 
- *   src="/images/john-avatar.jpg" 
+ * <UserAvatar
+ *   name="John Doe"
+ *   src="/images/john-avatar.jpg"
  * />
- * 
+ *
  * // With initials fallback
  * <UserAvatar name="Jane Smith" />
- * 
+ *
  * // Different sizes and shapes
- * <UserAvatar 
- *   name="Designer" 
- *   size="lg" 
+ * <UserAvatar
+ *   name="Designer"
+ *   size="lg"
  *   shape="rounded"
- *   showStatus 
+ *   showStatus
  *   isOnline={true}
  * />
- * 
+ *
  * // Interactive avatar
- * <UserAvatar 
+ * <UserAvatar
  *   name="Store Admin"
  *   onClick={() => console.log('Avatar clicked')}
  * />
@@ -104,12 +107,12 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
    */
   const getInitials = (): string => {
     if (!name) return '?';
-    
+
     const words = name.trim().split(/\s+/);
     if (words.length === 1) {
       return words[0].substring(0, 2).toUpperCase();
     }
-    
+
     return words
       .slice(0, 2)
       .map(word => word.charAt(0))
@@ -142,9 +145,17 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     const shapeClass = `user-avatar--${shape}`;
     const statusClass = showStatus ? 'user-avatar--with-status' : '';
     const clickableClass = onClick ? 'user-avatar--clickable' : '';
-    const loadingClass = (loading || imageLoading) ? 'user-avatar--loading' : '';
+    const loadingClass = loading || imageLoading ? 'user-avatar--loading' : '';
 
-    return [baseClass, sizeClass, shapeClass, statusClass, clickableClass, loadingClass, className]
+    return [
+      baseClass,
+      sizeClass,
+      shapeClass,
+      statusClass,
+      clickableClass,
+      loadingClass,
+      className,
+    ]
       .filter(Boolean)
       .join(' ')
       .trim();
@@ -157,17 +168,29 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
     if (!name) return 'var(--avatar-default-bg, #9ca3af)';
 
     const colors = [
-      '#ef4444', '#f97316', '#f59e0b', '#eab308',
-      '#84cc16', '#22c55e', '#10b981', '#14b8a6',
-      '#06b6d4', '#0ea5e9', '#3b82f6', '#6366f1',
-      '#8b5cf6', '#a855f7', '#d946ef', '#ec4899',
+      '#ef4444',
+      '#f97316',
+      '#f59e0b',
+      '#eab308',
+      '#84cc16',
+      '#22c55e',
+      '#10b981',
+      '#14b8a6',
+      '#06b6d4',
+      '#0ea5e9',
+      '#3b82f6',
+      '#6366f1',
+      '#8b5cf6',
+      '#a855f7',
+      '#d946ef',
+      '#ec4899',
     ];
 
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     return colors[Math.abs(hash) % colors.length];
   };
 
@@ -186,7 +209,7 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       onClick={handleClick}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
-      onKeyDown={(e) => {
+      onKeyDown={e => {
         if (onClick && (e.key === 'Enter' || e.key === ' ')) {
           e.preventDefault();
           handleClick();
@@ -195,10 +218,12 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
       aria-label={alt || name || 'User avatar'}
       title={name}
     >
-      <div 
+      <div
         className="user-avatar__container"
         style={{
-          backgroundColor: shouldShowInitials ? getBackgroundColor() : undefined,
+          backgroundColor: shouldShowInitials
+            ? getBackgroundColor()
+            : undefined,
         }}
       >
         {loading && (
@@ -219,22 +244,20 @@ export const UserAvatar: React.FC<UserAvatarProps> = ({
         )}
 
         {!loading && shouldShowInitials && (
-          <span className="user-avatar__initials">
-            {getInitials()}
-          </span>
+          <span className="user-avatar__initials">{getInitials()}</span>
         )}
 
         {!loading && fallback && !shouldShowImage && (
-          <div className="user-avatar__fallback">
-            {fallback}
-          </div>
+          <div className="user-avatar__fallback">{fallback}</div>
         )}
       </div>
 
       {showStatus && isOnline !== undefined && (
-        <div 
+        <div
           className={`user-avatar__status ${
-            isOnline ? 'user-avatar__status--online' : 'user-avatar__status--offline'
+            isOnline
+              ? 'user-avatar__status--online'
+              : 'user-avatar__status--offline'
           }`}
           aria-label={isOnline ? 'Online' : 'Offline'}
         />

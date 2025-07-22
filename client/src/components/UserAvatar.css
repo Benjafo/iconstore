@@ -1,0 +1,254 @@
+/* UserAvatar Component Styles */
+
+.user-avatar {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.user-avatar__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--avatar-bg, #f3f4f6);
+  color: var(--avatar-text, #ffffff);
+  font-weight: 500;
+  user-select: none;
+}
+
+.user-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.user-avatar__initials {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.user-avatar__fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-avatar__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--avatar-loading-bg, #f9fafb);
+}
+
+.user-avatar__spinner {
+  width: 50%;
+  height: 50%;
+  border: 2px solid var(--avatar-spinner-bg, #e5e7eb);
+  border-top: 2px solid var(--avatar-spinner-color, #3b82f6);
+  border-radius: 50%;
+  animation: user-avatar-spin 1s linear infinite;
+}
+
+@keyframes user-avatar-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Size variants */
+.user-avatar--xs {
+  width: 24px;
+  height: 24px;
+}
+
+.user-avatar--xs .user-avatar__initials {
+  font-size: 10px;
+}
+
+.user-avatar--sm {
+  width: 32px;
+  height: 32px;
+}
+
+.user-avatar--sm .user-avatar__initials {
+  font-size: 12px;
+}
+
+.user-avatar--md {
+  width: 40px;
+  height: 40px;
+}
+
+.user-avatar--md .user-avatar__initials {
+  font-size: 14px;
+}
+
+.user-avatar--lg {
+  width: 48px;
+  height: 48px;
+}
+
+.user-avatar--lg .user-avatar__initials {
+  font-size: 16px;
+}
+
+.user-avatar--xl {
+  width: 64px;
+  height: 64px;
+}
+
+.user-avatar--xl .user-avatar__initials {
+  font-size: 20px;
+}
+
+.user-avatar--2xl {
+  width: 80px;
+  height: 80px;
+}
+
+.user-avatar--2xl .user-avatar__initials {
+  font-size: 24px;
+}
+
+/* Shape variants */
+.user-avatar--circle .user-avatar__container {
+  border-radius: 50%;
+}
+
+.user-avatar--rounded .user-avatar__container {
+  border-radius: 8px;
+}
+
+.user-avatar--square .user-avatar__container {
+  border-radius: 0;
+}
+
+/* Status indicator */
+.user-avatar--with-status {
+  /* Add space for status indicator */
+}
+
+.user-avatar__status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25%;
+  height: 25%;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--avatar-status-border, #ffffff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar__status--online {
+  background-color: var(--status-online, #10b981);
+}
+
+.user-avatar__status--offline {
+  background-color: var(--status-offline, #6b7280);
+}
+
+/* Clickable states */
+.user-avatar--clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-avatar--clickable:hover {
+  transform: scale(1.05);
+}
+
+.user-avatar--clickable:focus {
+  outline: 2px solid var(--focus-color, #646cff);
+  outline-offset: 2px;
+}
+
+.user-avatar--clickable:active {
+  transform: scale(0.98);
+}
+
+/* Loading state */
+.user-avatar--loading {
+  opacity: 0.7;
+}
+
+.user-avatar--loading .user-avatar__container {
+  background-color: var(--avatar-loading-bg, #f3f4f6);
+}
+
+/* Icon store specific enhancements */
+.user-avatar--with-status.user-avatar--circle .user-avatar__status {
+  /* Adjust position for circular avatars */
+  bottom: -2px;
+  right: -2px;
+}
+
+.user-avatar--with-status.user-avatar--rounded .user-avatar__status,
+.user-avatar--with-status.user-avatar--square .user-avatar__status {
+  /* Adjust position for square/rounded avatars */
+  bottom: -1px;
+  right: -1px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .user-avatar__container {
+    background-color: var(--avatar-bg-dark, #374151);
+  }
+
+  .user-avatar__loading {
+    background-color: var(--avatar-loading-bg-dark, #1f2937);
+  }
+
+  .user-avatar__spinner {
+    border-color: var(--avatar-spinner-bg-dark, #4b5563);
+    border-top-color: var(--avatar-spinner-color-dark, #60a5fa);
+  }
+
+  .user-avatar__status {
+    border-color: var(--avatar-status-border-dark, #1f2937);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .user-avatar__container {
+    border: 1px solid currentColor;
+  }
+  
+  .user-avatar__status {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .user-avatar--clickable {
+    transition: none;
+  }
+  
+  .user-avatar--clickable:hover {
+    transform: none;
+  }
+  
+  .user-avatar--clickable:active {
+    transform: none;
+  }
+  
+  .user-avatar__spinner {
+    animation: none;
+  }
+}
