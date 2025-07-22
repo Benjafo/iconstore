@@ -150,7 +150,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       onAfterClose,
       ...props
     },
-    ref
+    _ref
   ) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const lastActiveElementRef = useRef<HTMLElement | null>(null);

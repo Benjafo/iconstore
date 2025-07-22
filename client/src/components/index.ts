@@ -9,10 +9,6 @@ export { LoadingCard } from './LoadingCard';
 export { Button } from './Button';
 export { Input } from './Input';
 export { SearchBox } from './SearchBox';
-
-// UI Components
-export { Button } from './Button';
-export { Input } from './Input';
 export { Modal } from './Modal';
 
 // Re-export types
