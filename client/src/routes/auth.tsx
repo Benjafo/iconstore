@@ -27,13 +27,13 @@ function Auth() {
       background="gradient"
       containerSize="md"
       header={
-        <div className="space-y-2">
-          <Heading level="h1" className="text-center">
+        <div className="space-y-4">
+          <Heading level="h1" className="text-center text-hero">
             IconStore
           </Heading>
-          <p className="text-muted-foreground">
-            {isLoginMode ? 'Welcome back' : 'Create your account'}
-          </p>
+          <Text size="lg" color="muted" className="text-center">
+            {isLoginMode ? 'Welcome back to your icon collection' : 'Create your account and start collecting'}
+          </Text>
         </div>
       }
     >
