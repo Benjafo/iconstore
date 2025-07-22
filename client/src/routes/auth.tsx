@@ -1,6 +1,8 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
 import { LoginForm } from '@/components/LoginForm';
 import { RegisterForm } from '@/components/RegisterForm';
+import { CenteredLayout } from '@/components/layout/CenteredLayout';
+import { Heading } from '@/components/ui/typography';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/auth')({
@@ -21,14 +23,25 @@ function Auth() {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md">
-        {isLoginMode ? (
-          <LoginForm onSwitchToRegister={() => setIsLoginMode(false)} />
-        ) : (
-          <RegisterForm onSwitchToLogin={() => setIsLoginMode(true)} />
-        )}
-      </div>
-    </div>
+    <CenteredLayout 
+      background="gradient"
+      containerSize="md"
+      header={
+        <div className="space-y-2">
+          <Heading level="h1" className="text-center">
+            IconStore
+          </Heading>
+          <p className="text-muted-foreground">
+            {isLoginMode ? 'Welcome back' : 'Create your account'}
+          </p>
+        </div>
+      }
+    >
+      {isLoginMode ? (
+        <LoginForm onSwitchToRegister={() => setIsLoginMode(false)} />
+      ) : (
+        <RegisterForm onSwitchToLogin={() => setIsLoginMode(true)} />
+      )}
+    </CenteredLayout>
   );
 }
