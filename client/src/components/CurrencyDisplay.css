@@ -1,0 +1,149 @@
+/* CurrencyDisplay Component Styles */
+
+.currency-display {
+  display: inline-block;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary, #213547);
+  transition: color 0.2s ease;
+}
+
+/* Format variants */
+.currency-display--full {
+  font-size: 1rem;
+}
+
+.currency-display--compact {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.currency-display--minimal {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-secondary, #666);
+}
+
+/* Currency-specific styles */
+.currency-display--usd {
+  color: var(--currency-usd, #2d5a27);
+}
+
+.currency-display--eur {
+  color: var(--currency-eur, #1e3a8a);
+}
+
+.currency-display--gbp {
+  color: var(--currency-gbp, #7c2d12);
+}
+
+.currency-display--jpy {
+  color: var(--currency-jpy, #991b1b);
+}
+
+.currency-display--cad {
+  color: var(--currency-cad, #dc2626);
+}
+
+.currency-display--aud {
+  color: var(--currency-aud, #059669);
+}
+
+/* Amount-based styling */
+.currency-display--free {
+  color: var(--success-color, #059669);
+  font-weight: 600;
+}
+
+.currency-display--low {
+  color: var(--success-color, #059669);
+}
+
+.currency-display--high {
+  color: var(--premium-color, #7c3aed);
+  font-weight: 600;
+}
+
+/* Icon store context - special styling for different price tiers */
+.currency-display--free::before {
+  content: '✨ ';
+  font-size: 0.8em;
+}
+
+.currency-display--high {
+  position: relative;
+}
+
+.currency-display--high::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--premium-color, #7c3aed), var(--premium-light, #a855f7));
+  border-radius: 1px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .currency-display {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .currency-display--minimal {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .currency-display--usd {
+    color: var(--currency-usd-dark, #4ade80);
+  }
+
+  .currency-display--eur {
+    color: var(--currency-eur-dark, #60a5fa);
+  }
+
+  .currency-display--gbp {
+    color: var(--currency-gbp-dark, #fb923c);
+  }
+
+  .currency-display--jpy {
+    color: var(--currency-jpy-dark, #f87171);
+  }
+
+  .currency-display--cad {
+    color: var(--currency-cad-dark, #ef4444);
+  }
+
+  .currency-display--aud {
+    color: var(--currency-aud-dark, #10b981);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .currency-display--full {
+    font-size: 0.9rem;
+  }
+
+  .currency-display--compact {
+    font-size: 0.8rem;
+  }
+
+  .currency-display--minimal {
+    font-size: 0.75rem;
+  }
+}
+
+/* Hover effects for interactive contexts */
+.currency-display:hover {
+  opacity: 0.8;
+}
+
+/* Focus styles for accessibility */
+.currency-display:focus {
+  outline: 2px solid var(--focus-color, #646cff);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
