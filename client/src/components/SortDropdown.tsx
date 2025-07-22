@@ -236,9 +236,10 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
 
   // Filter options based on search
   const filteredOptions = searchable
-    ? options.filter(option =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        option.description?.toLowerCase().includes(searchTerm.toLowerCase())
+    ? options.filter(
+        option =>
+          option.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          option.description?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : options;
 
@@ -255,7 +256,8 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      return () =>
+        document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [isOpen]);
 
@@ -343,7 +345,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
 
   const getTriggerText = () => {
     if (!selectedOption) return placeholder;
-    
+
     let text = selectedOption.label;
     if (showDirection && selectedOption.directional) {
       text += ` ${getDirectionIcon(value.direction)}`;
@@ -447,7 +449,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
                 className="sort-dropdown__search-input"
                 placeholder={searchPlaceholder}
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 aria-label="Search sort options"
               />
               <span className="sort-dropdown__search-icon">🔍</span>
@@ -470,9 +472,7 @@ export const SortDropdown: React.FC<SortDropdownProps> = ({
                     key={option.value}
                     className={`sort-dropdown__option ${
                       isSelected ? 'sort-dropdown__option--selected' : ''
-                    } ${
-                      isFocused ? 'sort-dropdown__option--focused' : ''
-                    } ${
+                    } ${isFocused ? 'sort-dropdown__option--focused' : ''} ${
                       option.disabled ? 'sort-dropdown__option--disabled' : ''
                     }`}
                     onClick={() => handleOptionSelect(option)}
