@@ -28,7 +28,7 @@ export interface CardProps {
 /**
  * Card - Base card component with shadows, borders, and interactive states.
  * Provides a consistent container for content with customizable styling.
- * 
+ *
  * @example
  * ```tsx
  * // Basic card
@@ -36,17 +36,17 @@ export interface CardProps {
  *   <h3>Card Title</h3>
  *   <p>Card content goes here</p>
  * </Card>
- * 
+ *
  * // Interactive card
- * <Card 
- *   interactive 
+ * <Card
+ *   interactive
  *   onClick={() => console.log('Clicked')}
  *   shadow="sm"
  *   radius="md"
  * >
  *   <div>Clickable content</div>
  * </Card>
- * 
+ *
  * // Outlined card with no shadow
  * <Card variant="outlined" padding="lg" shadow="none">
  *   <div>Outlined card content</div>
@@ -72,15 +72,15 @@ export const Card: React.FC<CardProps> = ({
       `card--padding-${padding}`,
       `card--variant-${variant}`,
     ];
-    
+
     if (interactive || onClick) {
       classes.push('card--interactive');
     }
-    
+
     if (className) {
       classes.push(className);
     }
-    
+
     return classes.join(' ');
   };
 
@@ -93,24 +93,22 @@ export const Card: React.FC<CardProps> = ({
   const cardProps = {
     ...props,
     className: getCardClasses(),
-    ...(interactive || onClick ? {
-      onClick: handleClick,
-      role: 'button',
-      tabIndex: 0,
-      onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
-        if ((event.key === 'Enter' || event.key === ' ') && onClick) {
-          event.preventDefault();
-          onClick(event as unknown as React.MouseEvent<HTMLDivElement>);
+    ...(interactive || onClick
+      ? {
+          onClick: handleClick,
+          role: 'button',
+          tabIndex: 0,
+          onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
+            if ((event.key === 'Enter' || event.key === ' ') && onClick) {
+              event.preventDefault();
+              onClick(event as unknown as React.MouseEvent<HTMLDivElement>);
+            }
+          },
         }
-      },
-    } : {}),
+      : {}),
   };
 
-  return (
-    <div {...cardProps}>
-      {children}
-    </div>
-  );
+  return <div {...cardProps}>{children}</div>;
 };
 
 export default Card;

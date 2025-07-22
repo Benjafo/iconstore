@@ -42,7 +42,7 @@ export {
 
 // Convenience re-exports for easier importing
 export const NavigationComponents = {
-  Header,
+  HeaderC,
   Sidebar,
   Breadcrumbs,
   TabNavigation,
