@@ -126,7 +126,7 @@
 @layer components {
   /* Enhanced card variants for auth and other elevated content */
   .card-elevated {
-    @apply shadow-lg border-border/50 backdrop-blur-sm;
+    @apply shadow-xl border-border/50 backdrop-blur-sm;
   }
   
   /* Focus improvements for better accessibility */
