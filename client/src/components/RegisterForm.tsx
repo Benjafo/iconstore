@@ -97,7 +97,9 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
   return (
     <Card className="w-full max-w-md mx-auto card-elevated animate-slide-up">
       <CardHeader className="text-center space-y-2">
-        <CardTitle className="text-card-title text-2xl">Create Account</CardTitle>
+        <CardTitle className="text-card-title text-2xl">
+          Create Account
+        </CardTitle>
         <CardDescription className="text-muted-foreground">
           Sign up to start collecting icons
         </CardDescription>
@@ -179,17 +181,30 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               </Alert>
             )}
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Creating Account...' : 'Create Account'}
+            <Button
+              type="submit"
+              className="w-full btn-primary-enhanced"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center gap-2">
+                  <div className="loading-shimmer w-4 h-4 rounded-full"></div>
+                  Creating Account...
+                </span>
+              ) : (
+                'Create Account'
+              )}
             </Button>
 
             {onSwitchToLogin && (
-              <div className="text-center text-sm">
-                Already have an account?{' '}
+              <div className="text-center text-sm pt-4 border-t border-border/20">
+                <span className="text-muted-foreground">
+                  Already have an account?
+                </span>{' '}
                 <Button
                   type="button"
                   variant="link"
-                  className="p-0 h-auto"
+                  className="p-0 h-auto text-primary hover:text-primary/80 font-medium"
                   onClick={onSwitchToLogin}
                 >
                   Login here
