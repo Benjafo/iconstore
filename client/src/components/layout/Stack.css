@@ -1,0 +1,95 @@
+/**
+ * Stack - Vertical/horizontal spacing component styles
+ */
+.stack {
+  display: flex;
+}
+
+/* Direction */
+.stack--direction-row {
+  flex-direction: row;
+}
+
+.stack--direction-column {
+  flex-direction: column;
+}
+
+/* Gap variants */
+.stack--gap-none {
+  gap: 0;
+}
+
+.stack--gap-xs {
+  gap: 0.25rem; /* 4px */
+}
+
+.stack--gap-sm {
+  gap: 0.5rem; /* 8px */
+}
+
+.stack--gap-md {
+  gap: 1rem; /* 16px */
+}
+
+.stack--gap-lg {
+  gap: 1.5rem; /* 24px */
+}
+
+.stack--gap-xl {
+  gap: 2rem; /* 32px */
+}
+
+.stack--gap-xxl {
+  gap: 3rem; /* 48px */
+}
+
+/* Justify content (main axis alignment) */
+.stack--justify-start {
+  justify-content: flex-start;
+}
+
+.stack--justify-end {
+  justify-content: flex-end;
+}
+
+.stack--justify-center {
+  justify-content: center;
+}
+
+.stack--justify-between {
+  justify-content: space-between;
+}
+
+.stack--justify-around {
+  justify-content: space-around;
+}
+
+.stack--justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Align items (cross axis alignment) */
+.stack--align-start {
+  align-items: flex-start;
+}
+
+.stack--align-end {
+  align-items: flex-end;
+}
+
+.stack--align-center {
+  align-items: center;
+}
+
+.stack--align-stretch {
+  align-items: stretch;
+}
+
+.stack--align-baseline {
+  align-items: baseline;
+}
+
+/* Wrap */
+.stack--wrap {
+  flex-wrap: wrap;
+}

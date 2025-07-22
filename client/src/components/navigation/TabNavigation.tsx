@@ -60,10 +60,10 @@ export interface TabNavigationProps {
 
 /**
  * Tab-based navigation component
- * 
+ *
  * Provides tabbed navigation with support for different styles, orientations,
  * and interactive features. Designed for an icon pack store application.
- * 
+ *
  * @param props - TabNavigation component props
  * @returns JSX element representing the tab navigation
  */
@@ -148,7 +148,7 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       const newOrder = [...tabs];
       const [draggedItem] = newOrder.splice(draggedIndex, 1);
       newOrder.splice(dropIndex, 0, draggedItem);
-      
+
       onReorder(newOrder.map(tab => tab.id));
     }
 
@@ -158,14 +158,15 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
 
   const scrollToTab = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return;
-    
+
     const scrollAmount = 200;
-    const newScrollLeft = scrollContainerRef.current.scrollLeft + 
+    const newScrollLeft =
+      scrollContainerRef.current.scrollLeft +
       (direction === 'left' ? -scrollAmount : scrollAmount);
-    
+
     scrollContainerRef.current.scrollTo({
       left: newScrollLeft,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
@@ -195,26 +196,22 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
         onClick={() => handleTabClick(tab)}
         disabled={tab.disabled}
         draggable={allowReorder && !tab.disabled}
-        onDragStart={(e) => handleDragStart(tab.id, e)}
-        onDragOver={(e) => handleDragOver(tab.id, e)}
+        onDragStart={e => handleDragStart(tab.id, e)}
+        onDragOver={e => handleDragOver(tab.id, e)}
         onDragLeave={handleDragLeave}
-        onDrop={(e) => handleDrop(tab.id, e)}
+        onDrop={e => handleDrop(tab.id, e)}
         style={{
           flex: fullWidth ? '1' : 'none',
         }}
       >
         <span className="tab-content">
-          {tab.icon && (
-            <span className="tab-icon">{tab.icon}</span>
-          )}
+          {tab.icon && <span className="tab-icon">{tab.icon}</span>}
           <span className="tab-label">{tab.label}</span>
-          {tab.badge && (
-            <span className="tab-badge">{tab.badge}</span>
-          )}
+          {tab.badge && <span className="tab-badge">{tab.badge}</span>}
           {tab.closable && (
             <span
               className="tab-close"
-              onClick={(e) => handleTabClose(tab.id, e)}
+              onClick={e => handleTabClose(tab.id, e)}
               role="button"
               aria-label={`Close ${tab.label} tab`}
             >
@@ -230,10 +227,10 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
     <div className={`tab-navigation ${orientation} ${className}`}>
       {/* Tab List */}
       <div className="tab-list-container">
-        {scrollable && orientation === 'horizontal' && (
-          renderScrollButton('left')
-        )}
-        
+        {scrollable &&
+          orientation === 'horizontal' &&
+          renderScrollButton('left')}
+
         <div
           ref={scrollContainerRef}
           className={`tab-list ${variant} ${scrollable ? 'scrollable' : ''} ${centered ? 'centered' : ''}`}
@@ -243,9 +240,9 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
           {tabs.map((tab, index) => renderTab(tab, index))}
         </div>
 
-        {scrollable && orientation === 'horizontal' && (
-          renderScrollButton('right')
-        )}
+        {scrollable &&
+          orientation === 'horizontal' &&
+          renderScrollButton('right')}
       </div>
 
       {/* Tab Content */}
