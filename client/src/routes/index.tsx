@@ -2,7 +2,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Section } from '@/components/layout/Section';
 import { Heading, Text } from '@/components/ui/typography';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export const Route = createFileRoute('/')({
   component: Index,
@@ -17,12 +23,19 @@ function Index() {
           <Heading level="h1" className="text-balance">
             Welcome to IconStore
           </Heading>
-          <Text size="lg" color="muted" className="max-w-2xl mx-auto text-balance">
-            Discover, collect, and manage your favorite icons. Build your perfect icon library with our curated collection.
+          <Text
+            size="lg"
+            color="muted"
+            className="max-w-2xl mx-auto text-balance"
+          >
+            Discover, collect, and manage your favorite icons. Build your
+            perfect icon library with our curated collection.
           </Text>
           <div className="flex gap-4 justify-center">
             <Button size="lg">Get Started</Button>
-            <Button variant="outline" size="lg">Browse Icons</Button>
+            <Button variant="outline" size="lg">
+              Browse Icons
+            </Button>
           </div>
         </div>
       </Section>
@@ -37,7 +50,7 @@ function Index() {
             Everything you need to manage your icon collection efficiently
           </Text>
         </div>
-        
+
         <div className="grid md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
@@ -48,7 +61,8 @@ function Index() {
             </CardHeader>
             <CardContent>
               <Text size="sm" color="muted">
-                Access thousands of professionally designed icons that enhance your projects and applications.
+                Access thousands of professionally designed icons that enhance
+                your projects and applications.
               </Text>
             </CardContent>
           </Card>
@@ -62,7 +76,8 @@ function Index() {
             </CardHeader>
             <CardContent>
               <Text size="sm" color="muted">
-                Create custom collections, tag your favorites, and find the perfect icon when you need it.
+                Create custom collections, tag your favorites, and find the
+                perfect icon when you need it.
               </Text>
             </CardContent>
           </Card>
@@ -76,7 +91,8 @@ function Index() {
             </CardHeader>
             <CardContent>
               <Text size="sm" color="muted">
-                Get your icons in the format you need, optimized for web, mobile, and print applications.
+                Get your icons in the format you need, optimized for web,
+                mobile, and print applications.
               </Text>
             </CardContent>
           </Card>

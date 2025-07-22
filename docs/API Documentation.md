@@ -159,7 +159,127 @@ GET /user/me
   "username": "johndoe",
   "currency_balance": 500,
   "created_at": "2024-01-15T10:00:00Z",
-  "icons_owned": 15
+  "icons_owned": 15,
+  "bio": "Icon enthusiast and digital artist",
+  "avatar_url": "https://cdn.iconstore.com/avatars/user-550e8400.jpg",
+  "email_verified": true,
+  "preferences": {
+    "email_notifications": true,
+    "theme": "dark",
+    "language": "en"
+  }
+}
+```
+
+### Update User Profile
+
+```
+PUT /user/me
+```
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Request Body:**
+
+```json
+{
+  "username": "newusername",
+  "bio": "Updated bio text",
+  "avatar_url": "https://cdn.iconstore.com/avatars/new-avatar.jpg"
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "email": "user@example.com",
+  "username": "newusername",
+  "currency_balance": 500,
+  "created_at": "2024-01-15T10:00:00Z",
+  "icons_owned": 15,
+  "bio": "Updated bio text",
+  "avatar_url": "https://cdn.iconstore.com/avatars/new-avatar.jpg",
+  "email_verified": true,
+  "preferences": {
+    "email_notifications": true,
+    "theme": "dark",
+    "language": "en"
+  }
+}
+```
+
+**Error Response (Username Taken):**
+
+```json
+{
+  "error": "validation_error",
+  "message": "Username is already taken",
+  "details": {
+    "username": "Username 'newusername' is already in use"
+  }
+}
+```
+
+### Get User Settings
+
+```
+GET /user/settings
+```
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Response:**
+
+```json
+{
+  "email_notifications": true,
+  "theme": "dark",
+  "language": "en",
+  "currency_display": "USD",
+  "privacy": {
+    "show_profile": true,
+    "show_collection": false
+  }
+}
+```
+
+### Update User Settings
+
+```
+PUT /user/settings
+```
+
+**Headers:** `Authorization: Bearer <token>`
+
+**Request Body:**
+
+```json
+{
+  "email_notifications": false,
+  "theme": "light",
+  "language": "es",
+  "currency_display": "EUR",
+  "privacy": {
+    "show_profile": false,
+    "show_collection": true
+  }
+}
+```
+
+**Response:**
+
+```json
+{
+  "email_notifications": false,
+  "theme": "light",
+  "language": "es",
+  "currency_display": "EUR",
+  "privacy": {
+    "show_profile": false,
+    "show_collection": true
+  }
 }
 ```
 
